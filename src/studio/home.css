@@ -1,0 +1,16 @@
+/* Ajustes solo de la Home (StudioHome añade la clase .s-home). */
+
+/* Menú centrado: mismos enlaces y estilo, solo cambia la posición.
+   (Por debajo de 960px los enlaces se ocultan y se usa el menú móvil.) */
+@media (min-width: 961px) {
+  .s-home .s-nav__links {
+    position: absolute;
+    left: 50%;
+    margin-left: 0;
+    transform: translateX(-50%);
+  }
+
+  .s-home .s-nav__cta {
+    margin-left: auto;
+  }
+}

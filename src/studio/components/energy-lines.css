@@ -1,0 +1,33 @@
+/* Líneas de energía — solo en la Home (ver EnergyLines.jsx).
+   .s-home crea un contexto de apilamiento propio: el lienzo (z-index -1)
+   queda por encima del fondo de la página pero por debajo de todo el
+   contenido, así que nunca se dibuja sobre textos, tarjetas ni imágenes. */
+
+.s-home {
+  position: relative;
+  isolation: isolate;
+}
+
+.s-energy {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  display: block;
+  width: 100%;
+  height: 100vh;
+  height: 100lvh;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 1.4s ease 0.6s;
+}
+
+.s-energy.is-ready {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .s-energy {
+    transition: none;
+  }
+}

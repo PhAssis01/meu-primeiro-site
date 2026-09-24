@@ -1,0 +1,152 @@
+/* Intro de bienvenida (ver Intro.jsx). Solo existe mientras se reproduce.
+   Paleta de la intro: negro, grises y blanco (igual que el resto del sitio). */
+
+@property --ph-hole {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0px;
+}
+
+.ph-intro {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: radial-gradient(ellipse 80% 70% at 50% 50%, #0c0c0c 0%, #070707 55%, #050505 100%);
+  cursor: default;
+  user-select: none;
+}
+
+/* ---------- Composición de código (canvas) ---------- */
+
+.ph-intro__bg {
+  position: absolute;
+  inset: 0;
+  transform-origin: 50% 50%;
+}
+
+.ph-intro__canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* Viñeta muy suave: centra la mirada en la palabra */
+.ph-intro::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 75% 70% at 50% 50%, transparent 55%, rgba(0, 0, 0, 0.55) 100%);
+  pointer-events: none;
+}
+
+/* ---------- Movimiento reducido: WELCOME simple, sin animación ---------- */
+
+.ph-intro__stage {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: 100%;
+  padding-inline: 16px;
+}
+
+.ph-intro__word {
+  font-family: var(--display);
+  font-size: clamp(3rem, 14vw, 8.5rem);
+  font-weight: 600;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: #f2f2f2;
+  white-space: nowrap;
+  text-shadow: 0 0 24px rgba(255, 255, 255, 0.18);
+}
+
+/* ---------- Salida: la composición se disuelve y revela la Home ---------- */
+
+.ph-intro.is-leaving {
+  -webkit-mask-image: radial-gradient(circle at 50% 50%, transparent var(--ph-hole), #000 calc(var(--ph-hole) + 30vmax));
+  mask-image: radial-gradient(circle at 50% 50%, transparent var(--ph-hole), #000 calc(var(--ph-hole) + 30vmax));
+  animation: ph-open 0.9s cubic-bezier(0.65, 0, 0.35, 1) forwards,
+    ph-fade 0.9s linear forwards;
+  pointer-events: none;
+}
+
+@keyframes ph-open {
+  from {
+    --ph-hole: -30vmax;
+  }
+  to {
+    --ph-hole: 110vmax;
+  }
+}
+
+@keyframes ph-fade {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Pequeño zoom-out de toda la composición mientras se dispersa */
+.ph-intro.is-leaving .ph-intro__bg {
+  animation: ph-zoom-out 0.9s cubic-bezier(0.33, 1, 0.68, 1) forwards;
+}
+
+@keyframes ph-zoom-out {
+  to {
+    transform: scale(0.94);
+  }
+}
+
+/* ---------- Home durante la intro ---------- */
+
+/* Las animaciones de entrada de la Home esperan a que termine la intro */
+.s-home.is-intro *,
+.s-home.is-intro *::before,
+.s-home.is-intro *::after {
+  animation-play-state: paused !important;
+}
+
+.s-home.is-intro .ph-intro,
+.s-home.is-intro .ph-intro * {
+  animation-play-state: running !important;
+}
+
+/* La Home entra por detrás de la intro.
+   overflow-x: clip evita que el zoom de entrada cree scroll horizontal. */
+.s-home.is-intro-reveal {
+  overflow-x: clip;
+}
+
+.s-home.is-intro-reveal > main {
+  transform-origin: 50% 40vh;
+  animation: ph-home-in 1s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.s-home.is-intro-reveal > .s-nav {
+  animation: ph-nav-in 0.9s ease 0.25s both;
+}
+
+@keyframes ph-home-in {
+  from {
+    opacity: 0.35;
+    transform: scale(1.045);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes ph-nav-in {
+  from {
+    opacity: 0;
+  }
+}
