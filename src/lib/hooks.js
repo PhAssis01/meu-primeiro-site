@@ -1,14 +1,23 @@
 import { useEffect, useState } from 'react'
 
 // Título, descripción e identidad activa (controla el color de fondo del <html>).
+// También mantiene canonical y Open Graph al navegar entre páginas sin recargar
+// (el HTML inicial de cada ruta ya los trae correctos; ver scripts/prerender-routes.mjs).
 export function usePageMeta(title, site, description) {
   useEffect(() => {
     document.title = title
     document.documentElement.dataset.site = site
+    const setMeta = (selector, value) => document.querySelector(selector)?.setAttribute('content', value)
+    setMeta('meta[property="og:title"]', title)
     if (description) {
-      document
-        .querySelector('meta[name="description"]')
-        ?.setAttribute('content', description)
+      setMeta('meta[name="description"]', description)
+      setMeta('meta[property="og:description"]', description)
+    }
+    const canonical = document.querySelector('link[rel="canonical"]')
+    if (canonical) {
+      const url = new URL(window.location.pathname, canonical.href).href
+      canonical.setAttribute('href', url)
+      setMeta('meta[property="og:url"]', url)
     }
   }, [title, site, description])
 }

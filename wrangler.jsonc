@@ -1,0 +1,14 @@
+// Configuración de despliegue en Cloudflare Workers (solo archivos estáticos).
+// - Las rutas existentes se sirven desde su HTML generado (dist/<ruta>.html).
+// - Cualquier otra URL responde con dist/404.html y estado HTTP 404.
+// Si el Worker se configuró en el panel de Cloudflare con otro nombre o con
+// "single-page-application", este archivo es el que debe mandar.
+{
+  "name": "meu-primeiro-site",
+  "compatibility_date": "2026-09-01",
+  "assets": {
+    "directory": "./dist",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  }
+}

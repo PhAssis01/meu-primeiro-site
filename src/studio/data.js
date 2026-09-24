@@ -3,6 +3,13 @@
 
 export const CONTACT_EMAIL = 'phwebstudio.es@gmail.com'
 
+// Envío real del formulario de contacto (opcional).
+// Vacío = no hay servicio de envío configurado: el formulario prepara un email
+// en la aplicación de correo del visitante y lo indica con claridad.
+// Para activarlo, pega aquí la URL de un servicio de formularios que acepte
+// POST con FormData y responda 2xx (p. ej. Formspree: 'https://formspree.io/f/xxxxxxx').
+export const CONTACT_ENDPOINT = ''
+
 export const META_DESCRIPTION =
   'PH Web Studio es un estudio de diseño y desarrollo web. Creamos websites profesionales para negocios que quieren crecer.'
 

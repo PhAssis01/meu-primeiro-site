@@ -142,7 +142,21 @@
   position: fixed;
   inset: 0 0 auto;
   z-index: 50;
-  transition: background-color 0.35s var(--ease);
+}
+
+/* Fondo + desenfoque en un pseudo-elemento para que el menú móvil
+   (position: fixed) siga ocupando toda la pantalla tras hacer scroll. */
+.k-header::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: rgba(8, 8, 8, 0.92);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  transition: opacity 0.35s var(--ease);
+  pointer-events: none;
 }
 
 .k-demo {
@@ -182,10 +196,11 @@
 }
 
 .k-header.is-scrolled {
-  background: rgba(8, 8, 8, 0.92);
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
   border-bottom: 1px solid var(--rule);
+}
+
+.k-header.is-scrolled::before {
+  opacity: 1;
 }
 
 .k-nav {
@@ -1074,4 +1089,29 @@
   .k-footer__bar {
     flex-direction: column;
   }
+}
+
+/* ---------- Áreas de toque (mín. 44×44 px, invisibles; sin cambios visuales) ---------- */
+.k-demo__back,
+.k-service__link,
+.k-footer__back {
+  position: relative;
+}
+
+/* Por encima de la barra de navegación, para que la zona ampliada sea pulsable */
+.k-demo__back {
+  z-index: 3;
+}
+
+.k-demo__back::before,
+.k-nav__links a::before,
+.k-service__link::before,
+.k-footer__back::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: max(100%, 44px);
+  height: max(100%, 44px);
+  transform: translate(-50%, -50%);
 }

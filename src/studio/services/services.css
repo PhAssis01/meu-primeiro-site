@@ -3683,3 +3683,29 @@
     animation: none;
   }
 }
+
+/* ---------- Áreas de toque (mín. 44×44 px, invisibles) ---------- */
+.sv-back,
+.sv-chip,
+.sv-demo__burger {
+  position: relative;
+}
+
+.sv-back::before,
+.sv-chip::before,
+.sv-demo__burger::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: max(100%, 44px);
+  height: max(100%, 44px);
+  transform: translate(-50%, -50%);
+}
+
+/* El control deslizante crece en alto, compensado con margen negativo:
+   la barra y el layout se ven igual. */
+.sv-resp__range input {
+  height: 44px;
+  margin-block: -14px;
+}
