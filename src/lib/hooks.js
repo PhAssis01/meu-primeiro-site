@@ -9,9 +9,11 @@ export function usePageMeta(title, site, description) {
     document.documentElement.dataset.site = site
     const setMeta = (selector, value) => document.querySelector(selector)?.setAttribute('content', value)
     setMeta('meta[property="og:title"]', title)
+    setMeta('meta[name="twitter:title"]', title)
     if (description) {
       setMeta('meta[name="description"]', description)
       setMeta('meta[property="og:description"]', description)
+      setMeta('meta[name="twitter:description"]', description)
     }
     const canonical = document.querySelector('link[rel="canonical"]')
     if (canonical) {

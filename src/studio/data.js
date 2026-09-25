@@ -11,7 +11,7 @@ export const CONTACT_EMAIL = 'phwebstudio.es@gmail.com'
 export const CONTACT_ENDPOINT = ''
 
 export const META_DESCRIPTION =
-  'PH Web Studio es un estudio de diseño y desarrollo web. Creamos websites profesionales para negocios que quieren crecer.'
+  'PH Web Studio: diseño y desarrollo web a medida para pequeños negocios. Webs claras, rápidas y adaptadas al móvil, pensadas para convertir visitas en clientes.'
 
 export const NAV_LINKS = [
   { id: 'inicio', label: 'Inicio' },

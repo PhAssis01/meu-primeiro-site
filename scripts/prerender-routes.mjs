@@ -10,11 +10,11 @@ import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-const SITE_URL = (process.env.SITE_URL || 'https://meu-primeiro-site.shotttzntj.workers.dev').replace(/\/$/, '')
+const SITE_URL = (process.env.SITE_URL || 'https://phwebstudios.net').replace(/\/$/, '')
 const DIST = join(dirname(fileURLToPath(import.meta.url)), '..', 'dist')
 
 const HOME_DESCRIPTION =
-  'PH Web Studio es un estudio de diseño y desarrollo web. Creamos websites profesionales para negocios que quieren crecer.'
+  'PH Web Studio: diseño y desarrollo web a medida para pequeños negocios. Webs claras, rápidas y adaptadas al móvil, pensadas para convertir visitas en clientes.'
 
 // Textos iguales a los que usa cada página en usePageMeta.
 const ROUTES = [
@@ -69,6 +69,8 @@ function withMeta(html, { title, description, url }) {
   out = replaceOnce(out, /<meta name="description" content="[^"]*"\s*\/?>/, `<meta name="description" content="${escape(description)}" />`, 'meta description')
   out = replaceOnce(out, /<meta property="og:title" content="[^"]*"\s*\/?>/, `<meta property="og:title" content="${escape(title)}" />`, 'og:title')
   out = replaceOnce(out, /<meta property="og:description" content="[^"]*"\s*\/?>/, `<meta property="og:description" content="${escape(description)}" />`, 'og:description')
+  out = replaceOnce(out, /<meta name="twitter:title" content="[^"]*"\s*\/?>/, `<meta name="twitter:title" content="${escape(title)}" />`, 'twitter:title')
+  out = replaceOnce(out, /<meta name="twitter:description" content="[^"]*"\s*\/?>/, `<meta name="twitter:description" content="${escape(description)}" />`, 'twitter:description')
   if (url) {
     out = replaceOnce(out, /<link rel="canonical" href="[^"]*"\s*\/?>/, `<link rel="canonical" href="${url}" />`, 'canonical')
     out = replaceOnce(out, /<meta property="og:url" content="[^"]*"\s*\/?>/, `<meta property="og:url" content="${url}" />`, 'og:url')
@@ -94,7 +96,7 @@ let notFound = withMeta(template, {
 notFound = notFound
   .replace(/\s*<link rel="canonical" href="[^"]*"\s*\/?>/, '')
   .replace(/\s*<meta property="og:url" content="[^"]*"\s*\/?>/, '')
-  .replace('</title>', '</title>\n    <meta name="robots" content="noindex" />')
+  .replace(/<meta name="robots" content="[^"]*"\s*\/?>/, '<meta name="robots" content="noindex" />')
 writeFileSync(join(DIST, '404.html'), notFound)
 
 console.log(`prerender-routes: ${ROUTES.length} rutas + 404.html → ${SITE_URL}`)
