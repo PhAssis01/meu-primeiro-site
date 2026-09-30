@@ -20,9 +20,10 @@ const HOME_DESCRIPTION =
 const ROUTES = [
   { path: '/', title: 'PH Web Studio — Diseño y desarrollo web', description: HOME_DESCRIPTION },
   {
-    path: '/proyectos/the-king',
-    title: 'The King Barber Shop — Proyecto conceptual de PH Web Studio',
-    description: 'Propuesta de website para The King Barber Shop: proyecto conceptual creado por PH Web Studio.',
+    path: '/proyectos/barberia',
+    title: 'Demo de web para barberías — Proyecto conceptual de PH Web Studio',
+    description:
+      'Demo de website para barberías creada por PH Web Studio: plantilla personalizable con servicios, galería y reserva de citas desde el móvil.',
   },
   {
     path: '/servicios/diseno-web',

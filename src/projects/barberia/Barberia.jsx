@@ -7,19 +7,19 @@ import Gallery from './components/Gallery'
 import Booking from './components/Booking'
 import Contact from './components/Contact'
 import Footer from './components/Footer'
-import './the-king.css'
+import './barberia.css'
 
-// The King Barber Shop — proyecto conceptual de PH Web Studio.
-export default function TheKing() {
+// Demo de web para barberías — proyecto conceptual de PH Web Studio.
+export default function Barberia() {
   usePageMeta(
-    'The King Barber Shop — Proyecto conceptual de PH Web Studio',
-    'the-king',
-    'Propuesta de website para The King Barber Shop: proyecto conceptual creado por PH Web Studio.',
+    'Demo de web para barberías — Proyecto conceptual de PH Web Studio',
+    'barberia',
+    'Demo de website para barberías creada por PH Web Studio: plantilla personalizable con servicios, galería y reserva de citas desde el móvil.',
   )
   useReveal()
 
   return (
-    <div className="king">
+    <div className="barber">
       <Header />
       <main>
         <Hero />

@@ -1089,9 +1089,9 @@
   border-radius: 3cqw;
 }
 
-/* ---------- Miniatura: The King (usa su propia paleta negro + dorado) ---------- */
+/* ---------- Miniatura: demo de barberías (usa su propia paleta negro + dorado) ---------- */
 
-.kp {
+.bp {
   container-type: inline-size;
   height: 100%;
   display: flex;
@@ -1101,7 +1101,7 @@
   font-family: 'Cormorant Garamond', Georgia, serif;
 }
 
-.kp__nav {
+.bp__nav {
   display: flex;
   align-items: center;
   gap: 4cqw;
@@ -1109,25 +1109,37 @@
   border-bottom: 1px solid rgba(200, 164, 93, 0.18);
 }
 
-.kp__logo {
-  width: 6.4cqw;
-  height: auto;
+.bp__logo {
+  display: flex;
+  align-items: center;
+  gap: 0.8cqw;
+  color: #c8a45d;
+  font-family: 'Manrope', system-ui, sans-serif;
+  font-size: 1.1cqw;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
 }
 
-.kp__links {
+.bp__logo-icon {
+  width: 3cqw;
+  height: 3cqw;
+}
+
+.bp__links {
   display: flex;
   gap: 2.6cqw;
   margin-left: auto;
 }
 
-.kp__links i {
+.bp__links i {
   width: 5cqw;
   height: 0.6cqw;
   border-radius: 1px;
   background: rgba(245, 241, 232, 0.3);
 }
 
-.kp__cta {
+.bp__cta {
   padding: 1cqw 2cqw;
   background: #c8a45d;
   color: #080808;
@@ -1138,7 +1150,7 @@
   text-transform: uppercase;
 }
 
-.kp__hero {
+.bp__hero {
   flex: 1;
   display: grid;
   grid-template-columns: 1.25fr 1fr;
@@ -1148,12 +1160,12 @@
   min-height: 0;
 }
 
-.kp__text {
+.bp__text {
   display: flex;
   flex-direction: column;
 }
 
-.kp__kicker {
+.bp__kicker {
   margin-bottom: 2cqw;
   color: #c8a45d;
   font-family: 'Manrope', system-ui, sans-serif;
@@ -1163,14 +1175,14 @@
   text-transform: uppercase;
 }
 
-.kp__text b {
+.bp__text b {
   font-size: 7cqw;
   font-weight: 600;
   line-height: 0.98;
   letter-spacing: -0.01em;
 }
 
-.kp__p {
+.bp__p {
   display: block;
   width: 80%;
   height: 0.8cqw;
@@ -1178,32 +1190,32 @@
   background: rgba(245, 241, 232, 0.22);
 }
 
-.kp__p + .kp__p {
+.bp__p + .bp__p {
   margin-top: 1.3cqw;
 }
 
-.kp__p--short {
+.bp__p--short {
   width: 55%;
 }
 
-.kp__actions {
+.bp__actions {
   display: flex;
   gap: 1.6cqw;
   margin-top: 3.4cqw;
 }
 
-.kp__btn {
+.bp__btn {
   width: 13cqw;
   height: 4cqw;
   background: #c8a45d;
 }
 
-.kp__btn--ghost {
+.bp__btn--ghost {
   background: none;
   border: 1px solid rgba(245, 241, 232, 0.35);
 }
 
-.kp__photo {
+.bp__photo {
   position: relative;
   height: 100%;
   min-height: 0;
@@ -1211,34 +1223,60 @@
   outline-offset: 1.2cqw;
 }
 
-.kp__photo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  filter: grayscale(0.25) contrast(1.05);
+.bp__photo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2cqw;
+  padding: 3cqw;
+  background:
+    repeating-linear-gradient(135deg, rgba(200, 164, 93, 0.06) 0 1px, transparent 1px 1.4cqw),
+    radial-gradient(80% 70% at 50% 40%, #1a1610, #111111 75%);
+  text-align: center;
 }
 
-.kp--mobile .kp__nav {
+.bp__photo-icon {
+  width: 6cqw;
+  height: 6cqw;
+  color: #c8a45d;
+}
+
+.bp__photo-name {
+  font-size: 3.4cqw;
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.bp--mobile .bp__nav {
   padding: 4cqw 7cqw;
 }
 
-.kp--mobile .kp__logo {
-  width: 17cqw;
+.bp--mobile .bp__logo {
+  gap: 2cqw;
+  font-size: 3cqw;
 }
 
-.kp__burger {
+.bp--mobile .bp__logo-icon {
+  width: 8cqw;
+  height: 8cqw;
+}
+
+.bp__burger {
   display: grid;
   gap: 2cqw;
   margin-left: auto;
 }
 
-.kp__burger i {
+.bp__burger i {
   width: 8cqw;
   height: 1px;
   background: #f5f1e8;
 }
 
-.kp--mobile .kp__hero {
+.bp--mobile .bp__hero {
   grid-template-columns: 1fr;
   grid-template-rows: auto 1fr;
   align-items: start;
@@ -1246,35 +1284,35 @@
   padding: 8cqw 7cqw 7cqw;
 }
 
-.kp--mobile .kp__kicker {
+.bp--mobile .bp__kicker {
   font-size: 3.6cqw;
   margin-bottom: 4cqw;
 }
 
-.kp--mobile .kp__text b {
+.bp--mobile .bp__text b {
   font-size: 15cqw;
 }
 
-.kp--mobile .kp__p {
+.bp--mobile .bp__p {
   height: 2cqw;
   margin-top: 6cqw;
 }
 
-.kp--mobile .kp__p + .kp__p {
+.bp--mobile .bp__p + .bp__p {
   margin-top: 3cqw;
 }
 
-.kp--mobile .kp__actions {
+.bp--mobile .bp__actions {
   gap: 3cqw;
   margin-top: 6cqw;
 }
 
-.kp--mobile .kp__btn {
+.bp--mobile .bp__btn {
   width: 35cqw;
   height: 10cqw;
 }
 
-.kp--mobile .kp__photo {
+.bp--mobile .bp__photo {
   outline-offset: 2.5cqw;
 }
 
@@ -2099,7 +2137,7 @@
 /* ==========================================================================
    Animaciones de scroll — solo PH Web Studio
    Todo va bajo .studio.s-motion (clase añadida por useStudioMotion en
-   motion.js). Los proyectos (The King…) no se ven afectados.
+   motion.js). Los proyectos (demo de barberías…) no se ven afectados.
    Se reutiliza .is-revealed, que useReveal añade a los [data-reveal].
    ========================================================================== */
 
@@ -2320,7 +2358,7 @@
    Sin desplazamientos, parallax ni barrido: solo fundidos de opacidad y la
    línea de progreso (no implican movimiento). El !important es necesario para
    superar la regla global de index.css (transition-duration: 0.01ms
-   !important), que no se toca porque la comparte The King. */
+   !important), que no se toca porque la comparte la demo de barberías. */
 
 @media (prefers-reduced-motion: reduce) {
   .studio.s-motion [data-reveal],

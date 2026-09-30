@@ -65,16 +65,16 @@ export const serviceHref = (slug) => `/servicios/${slug}`
 
 export const PROJECTS = [
   {
-    slug: 'the-king',
-    name: 'The King Barber Shop',
+    slug: 'barberia',
+    name: 'Web para barberías',
     category: 'Barbería',
-    label: 'Proyecto conceptual — creado por PH Web Studio',
+    label: 'Demo / concepto — plantilla creada por PH Web Studio',
     description:
-      'Propuesta de website para una barbería de estética negra y dorada: identidad fiel al logotipo, servicios claros y reserva de citas desde el móvil.',
+      'Ejemplo de website para barberías: servicios claros, galería y reserva de citas desde el móvil. Nombre, logotipo, fotos, colores y textos se personalizan con la identidad de cada negocio.',
     highlights: ['Web completa', 'Reserva de citas', 'Adaptada a móvil'],
-    href: '/proyectos/the-king',
-    url: 'phwebstudio.com/proyectos/the-king',
-    preview: 'the-king',
+    href: '/proyectos/barberia',
+    url: 'phwebstudios.net/proyectos/barberia',
+    preview: 'barberia',
   },
   // Próximos proyectos (descomentar cuando existan su página y su miniatura):
   // { slug: 'restaurante', name: '…', category: 'Restaurante', … },

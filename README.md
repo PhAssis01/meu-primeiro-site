@@ -16,7 +16,7 @@ npm run preview  # testa o build localmente
 | Rota                   | Página                                            |
 | ---------------------- | ------------------------------------------------- |
 | `/`                    | Portfólio da PH Web Studio                        |
-| `/proyectos/the-king`  | The King Barber Shop (projeto conceitual / demo)  |
+| `/proyectos/barberia`  | Demo genérica para barbearias (template)          |
 | qualquer outra         | Página 404                                        |
 
 ## Estrutura
@@ -38,30 +38,27 @@ src/
 │   └── components/
 │       └── previews/        # miniaturas dos projetos (feitas em CSS)
 └── projects/
-    └── the-king/            # identidade própria da barbearia (preto + dourado)
-        ├── assets/          # logo e fotos da barbearia
-        ├── data.js          # imagens, serviços, conceito e marcadores de contato
-        ├── the-king.css
-        ├── TheKing.jsx
-        └── components/
+    └── barberia/            # demo genérica para barbearias (preto + dourado de exemplo)
+        ├── data.js          # nome de exemplo, serviços, conceito e marcadores de contato
+        ├── barberia.css
+        ├── Barberia.jsx
+        └── components/      # inclui Placeholder.jsx (espaços para logo e fotos do cliente)
 ```
 
 ## Edições rápidas
 
 - **Email de contato:** `CONTACT_EMAIL` em `src/studio/data.js`.
-- **The King:** serviços, textos do conceito e dados de contato ficam em
-  `src/projects/the-king/data.js`. Os campos entre colchetes (`[Dirección del local]`,
-  etc.) são marcadores: substituir pelos dados reais quando o negócio os fornecer.
-  Não há preços cadastrados.
-- **Imagens da The King:** `src/projects/the-king/assets/`. Para melhor nitidez,
-  substitua pelas versões originais em alta resolução mantendo o mesmo nome.
+- **Demo de barbearia:** serviços, textos do conceito e dados de contato ficam em
+  `src/projects/barberia/data.js`. É um template: os espaços de logo e fotos mostram
+  "Nombre de tu barbería" (`BRAND_PLACEHOLDER`) e os campos entre colchetes
+  (`[Dirección del local]`, etc.) são marcadores. Não há preços cadastrados.
 
 ## Identidades visuais
 
 | Site              | Cores                          | Fontes                          |
 | ----------------- | ------------------------------ | ------------------------------- |
 | PH Web Studio     | Preto + azul (`#3B82F6`)       | Space Grotesk + Inter           |
-| The King          | Preto + dourado (`#C8A45D`)    | Cormorant Garamond + Manrope    |
+| Demo barbearia    | Preto + dourado (`#C8A45D`)    | Cormorant Garamond + Manrope    |
 
 ## Adicionar um novo projeto ao portfólio
 
@@ -75,6 +72,6 @@ A numeração (01, 02, 03…) é gerada automaticamente pela ordem da lista.
 
 ## Publicação
 
-O site usa rotas no navegador (`/proyectos/the-king`). No **Cloudflare Pages**, isso
+O site usa rotas no navegador (`/proyectos/barberia`). No **Cloudflare Pages**, isso
 funciona automaticamente enquanto não houver um `404.html` na raiz do build. Em outros
 serviços, configure o fallback de SPA para `index.html`.

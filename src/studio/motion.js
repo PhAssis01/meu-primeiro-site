@@ -1,5 +1,5 @@
 // Animaciones de scroll exclusivas de PH Web Studio.
-// No afecta a los proyectos (The King, etc.): solo actúa dentro de .studio.
+// No afecta a los proyectos (demo de barberías, etc.): solo actúa dentro de .studio.
 //
 // - Marca el contenedor con .s-motion para activar los estados iniciales
 //   (si el JS no se ejecuta, todo el contenido sigue visible).

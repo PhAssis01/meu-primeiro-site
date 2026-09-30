@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { usePathname } from './router/router'
 import StudioHome from './studio/StudioHome'
 import NotFound from './studio/NotFound'
-import TheKing from './projects/the-king/TheKing'
+import Barberia from './projects/barberia/Barberia'
 import DisenoWeb from './studio/services/DisenoWeb'
 import DesarrolloWeb from './studio/services/DesarrolloWeb'
 import LandingPages from './studio/services/LandingPages'
@@ -19,7 +19,7 @@ if ('scrollRestoration' in window.history) {
 
 const ROUTES = {
   '/': StudioHome,
-  '/proyectos/the-king': TheKing,
+  '/proyectos/barberia': Barberia,
   // Páginas de servicio (slugs en src/studio/data.js → SERVICES)
   '/servicios/diseno-web': DisenoWeb,
   '/servicios/desarrollo-web': DesarrolloWeb,
