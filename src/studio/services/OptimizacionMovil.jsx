@@ -4,41 +4,16 @@ import { SvPoints, SvSection, SvSteps } from './parts'
 import { prefersReducedMotion, useScrollProgress } from '../motion'
 import { PhoneFrame } from '../components/BrowserFrame'
 import Icon from './icons'
+import { useCopy } from '../../i18n/context'
+import COPY from './copy/optimizacion-movil'
 
-// Notas que acompañan a la demo. `at`: progreso (0–1) en el que se activan.
-const NOTES = [
-  { at: 0, label: 'Inicio', title: 'Lo importante, arriba', text: 'Nombre, propuesta y botón de reserva visibles nada más abrir la web.' },
-  { at: 0.18, label: 'Acciones', title: 'Acciones a un toque', text: 'Llamar, cómo llegar u horario: botones grandes, pensados para el pulgar.' },
-  { at: 0.38, label: 'Carta', title: 'Textos legibles', text: 'Tamaños de letra y espacios cómodos, sin tener que hacer zoom.' },
-  { at: 0.58, label: 'Ubicación', title: 'Siempre a mano', text: 'La acción principal se mantiene visible mientras el cliente navega.' },
-  { at: 0.8, label: 'Reserva', title: 'Reserva en segundos', text: 'Formularios cortos y pasos claros, cómodos de completar con una mano.' },
-]
-
-const MENU = [
-  { name: 'Arroz del día', note: 'Para dos personas', price: '16 €' },
-  { name: 'Pulpo a la brasa', note: 'Patata y pimentón', price: '18 €' },
-  { name: 'Ensalada de temporada', note: 'Verduras de mercado', price: '11 €' },
-  { name: 'Tarta de queso', note: 'Receta de la casa', price: '6 €' },
-]
-
-const WHY = [
-  { icon: 'touch', title: 'Pensada para el pulgar', text: 'Botones y enlaces con el tamaño y la separación justos para tocarlos sin fallar.' },
-  { icon: 'type', title: 'Lectura cómoda', text: 'Textos que se leen sin hacer zoom y contenidos ordenados en una sola columna.' },
-  { icon: 'bolt', title: 'Carga ligera', text: 'Imágenes y recursos adaptados para que la web responda bien también con datos móviles.' },
-  { icon: 'call', title: 'Acciones directas', text: 'Llamar, escribir o llegar hasta ti con un solo toque.' },
-]
-
-const STEPS = [
-  { title: 'Primero el móvil', text: 'Diseñamos cada página empezando por la pantalla pequeña.' },
-  { title: 'Toques y tamaños', text: 'Ajustamos botones, textos y formularios al uso con una mano.' },
-  { title: 'Pruebas reales', text: 'Revisamos la web en distintos teléfonos y navegadores.' },
-  { title: 'Velocidad', text: 'Comprobamos que carga con fluidez antes de publicarla.' },
-]
+// Progreso (0–1) en el que se activa cada nota de la demo (textos en copy/optimizacion-movil.js).
+const NOTE_AT = [0, 0.18, 0.38, 0.58, 0.8]
 
 const clamp = (value) => Math.min(1, Math.max(0, value))
 
 // Web de demostración (negocio ficticio) que se "usa" dentro del teléfono.
-function DemoApp({ phase, viewRef, scrollRef, touchRef }) {
+function DemoApp({ a, phase, viewRef, scrollRef, touchRef }) {
   return (
     <div className={`sv-app is-phase-${phase}`} ref={viewRef}>
       <div className="sv-app__status">
@@ -66,33 +41,29 @@ function DemoApp({ phase, viewRef, scrollRef, touchRef }) {
           <div className="sv-app__photo">
             <i />
           </div>
-          <p className="sv-app__eyebrow">Cocina mediterránea</p>
-          <h3 className="sv-app__h">Cocina de mercado en el centro.</h3>
-          <p className="sv-app__p">Producto de temporada, en un espacio tranquilo y cercano.</p>
+          <p className="sv-app__eyebrow">{a.eyebrow}</p>
+          <h3 className="sv-app__h">{a.title}</h3>
+          <p className="sv-app__p">{a.text}</p>
           <div className="sv-app__btns">
-            <span className="sv-app__btn">Reservar mesa</span>
-            <span className="sv-app__btn sv-app__btn--ghost">Ver carta</span>
+            <span className="sv-app__btn">{a.book}</span>
+            <span className="sv-app__btn sv-app__btn--ghost">{a.menuLink}</span>
           </div>
         </section>
 
         <section className="sv-app__actions">
-          {[
-            ['call', 'Llamar'],
-            ['pin', 'Cómo llegar'],
-            ['clock', 'Horario'],
-          ].map(([icon, label]) => (
-            <span key={label} className="sv-app__action">
+          {['call', 'pin', 'clock'].map((icon, index) => (
+            <span key={icon} className="sv-app__action">
               <Icon name={icon} />
-              {label}
+              {a.actions[index]}
             </span>
           ))}
         </section>
 
         <section className="sv-app__block">
-          <h4 className="sv-app__title">Carta</h4>
+          <h4 className="sv-app__title">{a.menuTitle}</h4>
           <ul className="sv-app__menu">
-            {MENU.map((dish) => (
-              <li key={dish.name}>
+            {a.menu.map((dish, index) => (
+              <li key={index}>
                 <i />
                 <span>
                   <b>{dish.name}</b>
@@ -105,25 +76,19 @@ function DemoApp({ phase, viewRef, scrollRef, touchRef }) {
         </section>
 
         <section className="sv-app__block">
-          <h4 className="sv-app__title">Horario</h4>
+          <h4 className="sv-app__title">{a.hoursTitle}</h4>
           <dl className="sv-app__hours">
-            <div>
-              <dt>Lunes a jueves</dt>
-              <dd>13:00 – 16:00 · 20:00 – 23:00</dd>
-            </div>
-            <div>
-              <dt>Viernes y sábado</dt>
-              <dd>13:00 – 16:30 · 20:00 – 23:30</dd>
-            </div>
-            <div>
-              <dt>Domingo</dt>
-              <dd>13:00 – 16:30</dd>
-            </div>
+            {a.hours.map((row, index) => (
+              <div key={index}>
+                <dt>{row.days}</dt>
+                <dd>{row.time}</dd>
+              </div>
+            ))}
           </dl>
         </section>
 
         <section className="sv-app__block">
-          <h4 className="sv-app__title">Dónde estamos</h4>
+          <h4 className="sv-app__title">{a.whereTitle}</h4>
           <div className="sv-app__map">
             <i className="sv-app__road sv-app__road--h" />
             <i className="sv-app__road sv-app__road--v" />
@@ -131,44 +96,41 @@ function DemoApp({ phase, viewRef, scrollRef, touchRef }) {
               <Icon name="pin" />
             </span>
           </div>
-          <p className="sv-app__p">Calle Mayor, 12 · Centro</p>
+          <p className="sv-app__p">{a.address}</p>
         </section>
 
         <section className="sv-app__block">
-          <h4 className="sv-app__title">Reserva</h4>
+          <h4 className="sv-app__title">{a.bookingTitle}</h4>
           <div className="sv-app__form">
-            <span className="sv-app__field">
-              <small>Personas</small>2
-            </span>
-            <span className="sv-app__field">
-              <small>Día</small>Hoy
-            </span>
-            <span className="sv-app__field">
-              <small>Hora</small>21:00
-            </span>
+            {a.fields.map((field, index) => (
+              <span key={index} className="sv-app__field">
+                <small>{field.label}</small>
+                {field.value}
+              </span>
+            ))}
           </div>
         </section>
 
-        <footer className="sv-app__footer">Olivo · Restaurante</footer>
+        <footer className="sv-app__footer">{a.footer}</footer>
       </div>
 
       <div className="sv-app__bar">
-        <span className="sv-app__btn">Reservar mesa</span>
+        <span className="sv-app__btn">{a.book}</span>
       </div>
 
       <div className="sv-app__sheet">
         <span className="sv-app__grip" />
         <div className="sv-app__sheet-form">
-          <p className="sv-app__title">Tu reserva</p>
-          <p className="sv-app__summary">2 personas · Hoy · 21:00</p>
-          <span className="sv-app__btn">Confirmar reserva</span>
+          <p className="sv-app__title">{a.sheetTitle}</p>
+          <p className="sv-app__summary">{a.summary}</p>
+          <span className="sv-app__btn">{a.confirm}</span>
         </div>
         <div className="sv-app__done">
           <span className="sv-app__check">
             <Icon name="check" />
           </span>
-          <p className="sv-app__title">Reserva enviada</p>
-          <p className="sv-app__summary">Te enviaremos la confirmación.</p>
+          <p className="sv-app__title">{a.doneTitle}</p>
+          <p className="sv-app__summary">{a.doneText}</p>
         </div>
       </div>
 
@@ -179,7 +141,7 @@ function DemoApp({ phase, viewRef, scrollRef, touchRef }) {
 }
 
 // Demo: el scroll de la página mueve el contenido dentro del teléfono.
-function PhoneDemo() {
+function PhoneDemo({ t }) {
   const sectionRef = useRef(null)
   const tiltRef = useRef(null)
   const viewRef = useRef(null)
@@ -214,22 +176,22 @@ function PhoneDemo() {
     last.current.p = p
 
     let index = 0
-    NOTES.forEach((item, i) => {
-      if (p >= item.at) index = i
+    NOTE_AT.forEach((at, i) => {
+      if (p >= at) index = i
     })
     setNote(index)
     setPhase(p >= 0.92 ? 3 : p >= 0.83 ? 2 : travel > 0.1 ? 1 : 0)
   })
 
   return (
-    <section id="detalle" className="sv-phone-demo" ref={sectionRef} aria-label="Demostración en un teléfono">
+    <section id="detalle" className="sv-phone-demo" ref={sectionRef} aria-label={t.demo.aria}>
       <div className="sv-phone-demo__stage">
         <div className="s-container sv-phone-demo__grid">
           <div className="sv-phone-demo__notes">
-            <p className="sv-phone-demo__eyebrow">Desliza para usarla</p>
+            <p className="sv-phone-demo__eyebrow">{t.demo.eyebrow}</p>
             <ol>
-              {NOTES.map((item, index) => (
-                <li key={item.title} className={index === note ? 'is-active' : undefined}>
+              {t.notes.map((item, index) => (
+                <li key={index} className={index === note ? 'is-active' : undefined}>
                   <span className="sv-phone-demo__num">{String(index + 1).padStart(2, '0')}</span>
                   <h3>{item.title}</h3>
                   <p>{item.text}</p>
@@ -241,7 +203,7 @@ function PhoneDemo() {
           <div className="sv-phone-demo__device" aria-hidden="true">
             <div className="sv-phone-demo__tilt" ref={tiltRef}>
               <PhoneFrame className="sv-iphone">
-                <DemoApp phase={phase} viewRef={viewRef} scrollRef={scrollRef} touchRef={touchRef} />
+                <DemoApp a={t.app} phase={phase} viewRef={viewRef} scrollRef={scrollRef} touchRef={touchRef} />
               </PhoneFrame>
             </div>
           </div>
@@ -251,8 +213,8 @@ function PhoneDemo() {
               <i ref={fillRef} />
             </span>
             <ol>
-              {NOTES.map((item, index) => (
-                <li key={item.label} className={index <= note ? 'is-on' : undefined}>
+              {t.notes.map((item, index) => (
+                <li key={index} className={index <= note ? 'is-on' : undefined}>
                   {item.label}
                 </li>
               ))}
@@ -265,30 +227,19 @@ function PhoneDemo() {
 }
 
 export default function OptimizacionMovil() {
+  const t = useCopy(COPY)
   return (
-    <ServiceLayout
-      slug="optimizacion-movil"
-      description="Webs optimizadas para el móvil: diseñadas primero para el teléfono, cómodas de usar con una mano y rápidas de cargar."
-    >
-      <ServiceHero
-        centered
-        index="04"
-        title="Tu web, cómoda en la palma de la mano."
-        lead="Buena parte de tus clientes te buscará desde el teléfono. Diseñamos cada web primero para el móvil: clara, rápida y fácil de usar con una mano."
-      />
+    <ServiceLayout slug="optimizacion-movil" description={t.description}>
+      <ServiceHero centered index="04" title={t.hero.title} lead={t.hero.lead} />
 
-      <PhoneDemo />
+      <PhoneDemo t={t} />
 
-      <SvSection
-        className="sv-section--alt"
-        title="Por qué primero el móvil"
-        intro="Una web pensada para el teléfono se siente natural en la mano y funciona igual de bien en el ordenador."
-      >
-        <SvPoints items={WHY} />
+      <SvSection className="sv-section--alt" title={t.sections.why.title} intro={t.sections.why.intro}>
+        <SvPoints items={t.why} />
       </SvSection>
 
-      <SvSection title="Cómo la optimizamos" intro="Cada detalle se revisa en la pantalla donde más se usa.">
-        <SvSteps steps={STEPS} />
+      <SvSection title={t.sections.steps.title} intro={t.sections.steps.intro}>
+        <SvSteps steps={t.steps} />
       </SvSection>
     </ServiceLayout>
   )

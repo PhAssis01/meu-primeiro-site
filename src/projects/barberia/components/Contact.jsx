@@ -1,20 +1,22 @@
-import { CONTACT } from '../data'
+import { useBarberCopy } from '../copy'
 
 export default function Contact() {
+  const t = useBarberCopy().contact
+
   return (
     <section id="contacto" className="bb-section bb-contact">
       <div className="bb-wrap">
         <header className="bb-head" data-reveal>
           <div>
-            <h2 className="bb-h2">Visítanos</h2>
+            <h2 className="bb-h2">{t.title}</h2>
           </div>
-          <p className="bb-head__note">Datos de ejemplo: se completan con los de cada negocio.</p>
+          <p className="bb-head__note">{t.note}</p>
         </header>
 
         <dl className="bb-contact__grid">
-          {CONTACT.map((item, index) => (
+          {t.items.map((item, index) => (
             <div
-              key={item.title}
+              key={index}
               className="bb-contact__item"
               data-reveal
               style={{ '--reveal-delay': `${index * 70}ms` }}

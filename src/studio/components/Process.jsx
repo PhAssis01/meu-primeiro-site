@@ -1,19 +1,19 @@
-import { PROCESS } from '../data'
+import { useStudioCopy } from '../copy'
 
 export default function Process() {
+  const t = useStudioCopy().process
+
   return (
     <section id="proceso" className="s-section s-process">
       <div className="s-container">
         <header className="s-head" data-reveal>
-          <h2 className="s-h2">Cómo trabajamos</h2>
-          <p className="s-body">
-            Un proceso sencillo y transparente, con tu aprobación en cada paso.
-          </p>
+          <h2 className="s-h2">{t.title}</h2>
+          <p className="s-body">{t.intro}</p>
         </header>
         <ol className="s-process__list">
-          {PROCESS.map((step, index) => (
+          {t.steps.map((step, index) => (
             <li
-              key={step.title}
+              key={index}
               className="s-step"
               data-reveal
               style={{ '--reveal-delay': `${index * 80}ms` }}

@@ -2,33 +2,16 @@ import ServiceLayout, { ServiceHero } from './ServiceLayout'
 import { ScrollStory, stageClass, SvPoints, SvSection, SvSteps } from './parts'
 import BrowserFrame from '../components/BrowserFrame'
 import GenericSite from '../components/mockups/GenericSite'
-
-const POINTS = [
-  { icon: 'layout', title: 'Estructura clara', text: 'Cada página se organiza para que el visitante encuentre lo que busca sin pensar.' },
-  { icon: 'palette', title: 'Identidad propia', text: 'Colores, tipografía e imágenes que reflejan la personalidad de tu negocio.' },
-  { icon: 'cursor', title: 'Interfaz cuidada', text: 'Botones, menús y formularios pensados para usarse con facilidad.' },
-  { icon: 'target', title: 'Orientada a un objetivo', text: 'Todo el diseño guía hacia lo importante: que te contacten o reserven.' },
-]
-
-const STAGES = [
-  { title: 'Estructura', label: 'Wireframe', text: 'Empezamos por el esqueleto: qué contenido va en cada zona y en qué orden. Sin colores ni adornos, solo la lógica de la página.' },
-  { title: 'Retícula y jerarquía', label: 'Retícula', text: 'Alineamos todo sobre una retícula y definimos tamaños de texto. Así la página respira y se lee de un vistazo.' },
-  { title: 'Estilo visual', label: 'Estilo', text: 'Aplicamos tu identidad: color de acento, tipografía, imágenes y detalles que hacen que la web sea reconocible.' },
-  { title: 'Diseño final', label: 'Listo', text: 'Revisamos cada estado —botones, menú, formularios— y dejamos el diseño listo para desarrollarlo.' },
-]
-
-const STEPS = [
-  { title: 'Briefing', text: 'Conocemos tu negocio, tu público y tus referencias.' },
-  { title: 'Estructura', text: 'Definimos las páginas y el recorrido del visitante.' },
-  { title: 'Propuesta visual', text: 'Diseñamos la web completa en escritorio y móvil.' },
-  { title: 'Ajustes', text: 'La revisamos contigo hasta que encaja con lo que buscas.' },
-]
+import { useCopy } from '../../i18n/context'
+import { useStudioCopy } from '../copy'
+import COPY from './copy/diseno-web'
 
 // Hero: la web genérica del estudio con capas de herramienta de diseño.
-function HeroVisual() {
+function HeroVisual({ t }) {
+  const mock = useStudioCopy().mock
   return (
     <div className="sv-dh">
-      <BrowserFrame url="tunegocio.com" className="sv-dh__frame" data-parallax="0.04">
+      <BrowserFrame url={mock.domain} className="sv-dh__frame" data-parallax="0.04">
         <GenericSite />
         <div className="sv-dh__guides">
           {Array.from({ length: 6 }, (_, i) => (
@@ -43,7 +26,7 @@ function HeroVisual() {
         </div>
       </BrowserFrame>
       <div className="sv-dh__panel" data-parallax="0.1">
-        <span className="sv-dh__panel-title">Estilo</span>
+        <span className="sv-dh__panel-title">{t.panel}</span>
         <span className="sv-dh__type">Aa</span>
         <span className="sv-dh__meta">Space Grotesk · 600</span>
         <span className="sv-dh__swatches">
@@ -57,10 +40,11 @@ function HeroVisual() {
 }
 
 // Relato: la misma página pasa de wireframe a diseño final.
-function DesignBuild({ stage }) {
+function DesignBuild({ stage, t }) {
+  const mock = useStudioCopy().mock
   return (
     <div className="sv-build-wrap">
-      <BrowserFrame url="tunegocio.com" className={`sv-build ${stageClass(stage)}`}>
+      <BrowserFrame url={mock.domain} className={`sv-build ${stageClass(stage)}`}>
         <div className="sv-build__page">
           <div className="sv-build__guides">
             {Array.from({ length: 6 }, (_, i) => (
@@ -80,15 +64,15 @@ function DesignBuild({ stage }) {
             <div className="sv-build__copy">
               <b className="sv-b sv-b--eyebrow" />
               <b className="sv-b sv-b--h1">
-                <span>Tu negocio, en su</span>
+                <span>{mock.headlineLines[0]}</span>
               </b>
               <b className="sv-b sv-b--h1 sv-b--short">
-                <span>mejor versión.</span>
+                <span>{mock.headlineLines[1]}</span>
               </b>
               <b className="sv-b sv-b--p" />
               <b className="sv-b sv-b--p sv-b--short" />
               <b className="sv-b sv-b--btn">
-                <span>Reservar</span>
+                <span>{mock.book}</span>
               </b>
             </div>
             <div className="sv-b sv-build__img">
@@ -103,15 +87,15 @@ function DesignBuild({ stage }) {
         </div>
       </BrowserFrame>
       <p className="sv-build__chip">
-        <span>Capa</span>
-        {STAGES[stage].label}
+        <span>{t.layer}</span>
+        {t.stages[stage].label}
       </p>
     </div>
   )
 }
 
 // Comparación: web improvisada frente a web diseñada.
-function Compare() {
+function Compare({ t }) {
   return (
     <div className="sv-compare">
       <figure className="sv-compare__item" data-reveal>
@@ -127,8 +111,8 @@ function Compare() {
           <b style={{ width: '24%', marginLeft: '60%' }} />
         </div>
         <figcaption>
-          <strong>Improvisada</strong>
-          Elementos desalineados, sin jerarquía y sin una acción clara.
+          <strong>{t.compare.rough.title}</strong>
+          {t.compare.rough.text}
         </figcaption>
       </figure>
       <figure className="sv-compare__item" data-reveal style={{ '--reveal-delay': '120ms' }}>
@@ -144,14 +128,14 @@ function Compare() {
           </span>
         </div>
         <figcaption>
-          <strong>Diseñada</strong>
-          Orden, aire y un camino evidente hacia el contacto.
+          <strong>{t.compare.clean.title}</strong>
+          {t.compare.clean.text}
         </figcaption>
       </figure>
       <ul className="sv-compare__notes">
-        {['Transmite confianza desde el primer vistazo', 'Se entiende en pocos segundos', 'Guía al visitante hacia la acción'].map(
+        {t.compare.notes.map(
           (note, index) => (
-            <li key={note} data-reveal style={{ '--reveal-delay': `${200 + index * 80}ms` }}>
+            <li key={index} data-reveal style={{ '--reveal-delay': `${200 + index * 80}ms` }}>
               {note}
             </li>
           ),
@@ -162,43 +146,25 @@ function Compare() {
 }
 
 export default function DisenoWeb() {
+  const t = useCopy(COPY)
   return (
-    <ServiceLayout
-      slug="diseno-web"
-      description="Diseño web a medida para pequeños negocios: estructura, identidad visual e interfaz pensadas para transmitir confianza."
-    >
-      <ServiceHero
-        index="01"
-        title="Diseño web que se entiende a primera vista."
-        lead="Diseñamos la imagen y la estructura de tu web para que refleje tu negocio, transmita confianza y lleve al visitante a contactarte."
-        visual={<HeroVisual />}
-      />
+    <ServiceLayout slug="diseno-web" description={t.description}>
+      <ServiceHero index="01" title={t.hero.title} lead={t.hero.lead} visual={<HeroVisual t={t} />} />
 
-      <SvSection
-        id="detalle"
-        title="Qué es el diseño web"
-        intro="No es solo que la web sea bonita: es decidir qué ve el visitante, en qué orden y qué le invita a hacer."
-      >
-        <SvPoints items={POINTS} />
+      <SvSection id="detalle" title={t.sections.what.title} intro={t.sections.what.intro}>
+        <SvPoints items={t.points} />
       </SvSection>
 
-      <SvSection
-        className="sv-section--alt"
-        title="Del boceto a la web"
-        intro="Así evoluciona una página durante el diseño. Desplázate para ver cada fase."
-      >
-        <ScrollStory steps={STAGES}>{(stage) => <DesignBuild stage={stage} />}</ScrollStory>
+      <SvSection className="sv-section--alt" title={t.sections.story.title} intro={t.sections.story.intro}>
+        <ScrollStory steps={t.stages}>{(stage) => <DesignBuild stage={stage} t={t} />}</ScrollStory>
       </SvSection>
 
-      <SvSection
-        title="El valor de una web profesional"
-        intro="Con el mismo contenido, el diseño cambia por completo lo que siente quien la visita."
-      >
-        <Compare />
+      <SvSection title={t.sections.value.title} intro={t.sections.value.intro}>
+        <Compare t={t} />
       </SvSection>
 
-      <SvSection title="Cómo trabajamos el diseño" intro="Un proceso sencillo, con tu aprobación en cada paso.">
-        <SvSteps steps={STEPS} />
+      <SvSection title={t.sections.steps.title} intro={t.sections.steps.intro}>
+        <SvSteps steps={t.steps} />
       </SvSection>
     </ServiceLayout>
   )

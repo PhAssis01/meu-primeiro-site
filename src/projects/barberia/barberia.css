@@ -1206,3 +1206,53 @@
   height: max(100%, 44px);
   transform: translate(-50%, -50%);
 }
+
+/* ---------- Selector de idioma (src/i18n/LangSwitch.jsx) ---------- */
+.barber .lang-switch {
+  --ls-line: var(--rule);
+  --ls-muted: rgba(245, 241, 232, 0.6);
+  --ls-text: var(--ivory);
+  --ls-active-bg: rgba(245, 241, 232, 0.1);
+}
+
+.bb-menu__foot {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 20px;
+}
+
+.bb-menu__foot .bb-btn--block {
+  align-self: stretch;
+}
+
+/* En escritorio, el selector va en la franja superior de PH Web Studio
+   (la barra de la demo no tiene sitio). En móvil, dentro del menú. */
+.bb-demo__end {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.bb-demo__lang {
+  position: relative;
+  z-index: 3;
+}
+
+@media (max-width: 960px) {
+  .bb-demo__lang {
+    display: none;
+  }
+}
+
+/* Escritorio estrecho: menos separación para que el botón no se salga
+   del margen (los textos en inglés y portugués son algo más largos). */
+@media (min-width: 961px) and (max-width: 1180px) {
+  .bb-nav {
+    gap: 28px;
+  }
+
+  .bb-nav__links {
+    gap: 24px;
+  }
+}

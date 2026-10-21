@@ -2,7 +2,10 @@
 
 /* Menú centrado: mismos enlaces y estilo, solo cambia la posición.
    (Por debajo de 960px los enlaces se ocultan y se usa el menú móvil.) */
-@media (min-width: 961px) {
+/* El selector de idioma (s-nav__lang) va a la derecha, junto al botón.
+   Por debajo de 1240px no hay sitio para centrar los enlaces sin que se
+   solapen con él: se alinean a la derecha, como en el resto de cabeceras. */
+@media (min-width: 1240px) {
   .s-home .s-nav__links {
     position: absolute;
     left: 50%;
@@ -10,7 +13,7 @@
     transform: translateX(-50%);
   }
 
-  .s-home .s-nav__cta {
+  .s-home .s-nav__lang {
     margin-left: auto;
   }
 }

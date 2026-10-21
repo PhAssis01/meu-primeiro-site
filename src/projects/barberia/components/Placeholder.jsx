@@ -1,4 +1,4 @@
-import { BRAND_PLACEHOLDER } from '../data'
+import { useBarberCopy } from '../copy'
 
 // Icono genérico de barbería (tijeras), dibujado a mano, sin marcas.
 export function ScissorsIcon({ className }) {
@@ -13,16 +13,17 @@ export function ScissorsIcon({ className }) {
 }
 
 // Espacio reservado donde irá una fotografía del cliente.
-// Muestra "Nombre de tu barbería" para dejar claro que es una plantilla.
+// Muestra el nombre de ejemplo ("Nombre de tu barbería") para dejar claro que es una plantilla.
 export function PhotoPlaceholder({ hint, className = '' }) {
+  const t = useBarberCopy()
   return (
     <div
       className={`bb-ph ${className}`.trim()}
       role="img"
-      aria-label={`Espacio para una foto de tu barbería${hint ? `: ${hint.toLowerCase()}` : ''}`}
+      aria-label={t.common.photoAria(hint)}
     >
       <ScissorsIcon className="bb-ph__icon" />
-      <span className="bb-ph__name">{BRAND_PLACEHOLDER}</span>
+      <span className="bb-ph__name">{t.brand}</span>
       {hint ? <span className="bb-ph__hint">{hint}</span> : null}
     </div>
   )
@@ -30,10 +31,11 @@ export function PhotoPlaceholder({ hint, className = '' }) {
 
 // Espacio reservado para el logotipo del cliente.
 export function LogoPlaceholder({ className = '' }) {
+  const t = useBarberCopy()
   return (
     <span className={`bb-emblem ${className}`.trim()} aria-hidden="true">
       <ScissorsIcon className="bb-emblem__icon" />
-      <span className="bb-emblem__text">Tu logo</span>
+      <span className="bb-emblem__text">{t.logo}</span>
     </span>
   )
 }

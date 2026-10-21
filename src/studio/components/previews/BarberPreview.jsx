@@ -1,5 +1,6 @@
 // Miniatura de la demo para barberías (plantilla genérica, sin marcas reales).
 // Escala con el contenedor gracias a las unidades cqw.
+import { useBarberCopy } from '../../../projects/barberia/copy'
 
 function Scissors({ className }) {
   return (
@@ -13,13 +14,14 @@ function Scissors({ className }) {
 
 export default function BarberPreview({ variant = 'desktop' }) {
   const mobile = variant === 'mobile'
+  const t = useBarberCopy()
 
   return (
     <div className={`bp${mobile ? ' bp--mobile' : ''}`}>
       <div className="bp__nav">
         <span className="bp__logo">
           <Scissors className="bp__logo-icon" />
-          <span>Tu logo</span>
+          <span>{t.logo}</span>
         </span>
         {mobile ? (
           <span className="bp__burger">
@@ -34,17 +36,17 @@ export default function BarberPreview({ variant = 'desktop' }) {
               <i />
               <i />
             </span>
-            <span className="bp__cta">Reservar cita</span>
+            <span className="bp__cta">{t.book}</span>
           </>
         )}
       </div>
 
       <div className="bp__hero">
         <div className="bp__text">
-          <span className="bp__kicker">Nombre de tu barbería</span>
-          <b>Estilo.</b>
-          <b>Precisión.</b>
-          <b>Carácter.</b>
+          <span className="bp__kicker">{t.brand}</span>
+          {t.hero.title.map((word, index) => (
+            <b key={index}>{word}</b>
+          ))}
           <span className="bp__p" />
           <span className="bp__p bp__p--short" />
           <span className="bp__actions">
@@ -54,7 +56,7 @@ export default function BarberPreview({ variant = 'desktop' }) {
         </div>
         <div className="bp__photo">
           <Scissors className="bp__photo-icon" />
-          <span className="bp__photo-name">Nombre de tu barbería</span>
+          <span className="bp__photo-name">{t.brand}</span>
         </div>
       </div>
     </div>

@@ -1,16 +1,17 @@
 import { useCallback, useState } from 'react'
-import { NAV_LINKS, CONTACT_EMAIL } from '../data'
+import { NAV_IDS, CONTACT_EMAIL } from '../data'
+import { useStudioCopy } from '../copy'
 import { useActiveSection, useMenuBehavior, useScrolled } from '../../lib/hooks'
+import LangSwitch from '../../i18n/LangSwitch'
 import Logo from './Logo'
 import Arrow from './Arrow'
 
-const SECTION_IDS = NAV_LINKS.map((link) => link.id)
-
 export default function Nav() {
+  const t = useStudioCopy()
   const [open, setOpen] = useState(false)
   const close = useCallback(() => setOpen(false), [])
   const scrolled = useScrolled()
-  const active = useActiveSection(SECTION_IDS)
+  const active = useActiveSection(NAV_IDS)
   useMenuBehavior(open, close)
 
   return (
@@ -18,25 +19,27 @@ export default function Nav() {
       className={`s-nav${scrolled ? ' is-scrolled' : ''}${open ? ' is-open' : ''}`}
     >
       <div className="s-container s-nav__inner">
-        <a href="#inicio" className="s-logo" onClick={close} aria-label="PH Web Studio — inicio">
+        <a href="#inicio" className="s-logo" onClick={close} aria-label={t.common.logoHome}>
           <Logo />
         </a>
 
-        <nav className="s-nav__links" aria-label="Principal">
-          {NAV_LINKS.map((link) => (
+        <nav className="s-nav__links" aria-label={t.common.mainNav}>
+          {NAV_IDS.map((id) => (
             <a
-              key={link.id}
-              href={`#${link.id}`}
-              className={active === link.id ? 'is-active' : undefined}
-              aria-current={active === link.id ? 'location' : undefined}
+              key={id}
+              href={`#${id}`}
+              className={active === id ? 'is-active' : undefined}
+              aria-current={active === id ? 'location' : undefined}
             >
-              {link.label}
+              {t.nav[id]}
             </a>
           ))}
         </nav>
 
+        <LangSwitch className="s-nav__lang" />
+
         <a href="#contacto" className="s-btn s-btn--primary s-btn--sm s-nav__cta">
-          Hablemos <Arrow />
+          {t.common.talk} <Arrow />
         </a>
 
         <button
@@ -44,7 +47,7 @@ export default function Nav() {
           className="s-burger"
           aria-expanded={open}
           aria-controls="s-menu"
-          aria-label={open ? 'Cerrar menú' : 'Abrir menú'}
+          aria-label={open ? t.common.closeMenu : t.common.openMenu}
           onClick={() => setOpen((value) => !value)}
         >
           <span />
@@ -53,22 +56,23 @@ export default function Nav() {
       </div>
 
       <div id="s-menu" className="s-menu" inert={!open} aria-hidden={!open}>
-        <nav className="s-container s-menu__inner" aria-label="Menú móvil">
+        <nav className="s-container s-menu__inner" aria-label={t.common.mobileNav}>
           <ul className="s-menu__list">
-            {NAV_LINKS.map((link, index) => (
-              <li key={link.id} style={{ '--i': index }}>
-                <a href={`#${link.id}`} onClick={close}>
-                  {link.label}
+            {NAV_IDS.map((id, index) => (
+              <li key={id} style={{ '--i': index }}>
+                <a href={`#${id}`} onClick={close}>
+                  {t.nav[id]}
                 </a>
               </li>
             ))}
           </ul>
           <div className="s-menu__foot">
+            <LangSwitch size="lg" />
             <a href={`mailto:${CONTACT_EMAIL}`} className="s-menu__mail">
               {CONTACT_EMAIL}
             </a>
             <a href="#contacto" onClick={close} className="s-btn s-btn--primary">
-              Hablemos <Arrow />
+              {t.common.talk} <Arrow />
             </a>
           </div>
         </nav>

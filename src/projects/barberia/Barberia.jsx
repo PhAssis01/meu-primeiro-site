@@ -1,4 +1,5 @@
 import { usePageMeta, useReveal } from '../../lib/hooks'
+import { useBarberCopy } from './copy'
 import Header from './components/Header'
 import Hero from './components/Hero'
 import Concept from './components/Concept'
@@ -11,11 +12,8 @@ import './barberia.css'
 
 // Demo de web para barberías — proyecto conceptual de PH Web Studio.
 export default function Barberia() {
-  usePageMeta(
-    'Demo de web para barberías — Proyecto conceptual de PH Web Studio',
-    'barberia',
-    'Demo de website para barberías creada por PH Web Studio: plantilla personalizable con servicios, galería y reserva de citas desde el móvil.',
-  )
+  const t = useBarberCopy()
+  usePageMeta(t.meta.title, 'barberia', t.meta.description)
   useReveal()
 
   return (

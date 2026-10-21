@@ -3,36 +3,13 @@ import ServiceLayout, { ServiceHero } from './ServiceLayout'
 import { ScrollStory, stageClass, SvPoints, SvSection, SvSteps } from './parts'
 import { prefersReducedMotion } from '../motion'
 import BrowserFrame from '../components/BrowserFrame'
-
-const IMPRESSION = [
-  { icon: 'bolt', title: 'Rapidez', text: 'La página aparece enseguida y el visitante no se queda mirando una pantalla en blanco.' },
-  { icon: 'eye', title: 'Claridad', text: 'En pocos segundos se entiende qué ofreces y qué puede hacer quien la visita.' },
-  { icon: 'shield', title: 'Confianza', text: 'Una página que carga bien y no da saltos transmite seriedad.' },
-]
-
-const ANATOMY = [
-  { title: 'Un titular claro', text: 'Lo primero que se carga es lo que más importa: qué ofreces y para quién, sin rodeos.' },
-  { title: 'Beneficios a la vista', text: 'Después, las razones para elegirte, en bloques cortos que se leen de un vistazo.' },
-  { title: 'Una sola acción', text: 'Un único objetivo —llamar, escribir o reservar— con un botón que siempre se encuentra.' },
-  { title: 'Contacto sin fricción', text: 'Un formulario breve, con los campos justos, para que dar el paso cueste poco.' },
-]
-
-const UX = [
-  { icon: 'gauge', title: 'Carga progresiva', text: 'Lo visible se muestra primero; lo demás llega mientras se lee.' },
-  { icon: 'image', title: 'Imágenes ajustadas', text: 'Cada pantalla recibe imágenes del tamaño que necesita.' },
-  { icon: 'layout', title: 'Sin saltos', text: 'El espacio de cada elemento está reservado: nada se mueve al cargar.' },
-  { icon: 'target', title: 'Objetivo único', text: 'Todo en la página empuja hacia la misma acción.' },
-]
-
-const STEPS = [
-  { title: 'Objetivo', text: 'Decidimos qué acción debe hacer el visitante.' },
-  { title: 'Mensaje', text: 'Escribimos un titular y unos beneficios que se entienden rápido.' },
-  { title: 'Construcción', text: 'Diseñamos y desarrollamos una página ligera y adaptada al móvil.' },
-  { title: 'Revisión', text: 'Comprobamos cómo carga y cómo se usa en distintos dispositivos.' },
-]
+import { useCopy } from '../../i18n/context'
+import { useStudioCopy } from '../copy'
+import COPY from './copy/landing-pages'
 
 // Hero: una página que se carga por partes al abrir la web.
 function HeroVisual() {
+  const mock = useStudioCopy().mock
   const [stage, setStage] = useState(() => (prefersReducedMotion() ? 4 : 0))
 
   useEffect(() => {
@@ -42,18 +19,18 @@ function HeroVisual() {
   }, [stage])
 
   return (
-    <BrowserFrame url="tunegocio.com" className={`sv-load ${stageClass(stage)}`} data-parallax="0.04">
+    <BrowserFrame url={mock.domain} className={`sv-load ${stageClass(stage)}`} data-parallax="0.04">
       <div className="sv-load__page">
         <span className="sv-load__progress" />
         <div className="sv-load__hero">
           <div className="sv-load__copy">
             <b className="sv-load__h">
-              <span>Tu negocio, en su mejor versión.</span>
+              <span>{mock.headline}</span>
             </b>
             <b className="sv-load__p" />
             <b className="sv-load__p sv-load__p--short" />
             <b className="sv-load__btn">
-              <span>Reservar</span>
+              <span>{mock.book}</span>
             </b>
           </div>
           <div className="sv-load__img">
@@ -71,7 +48,7 @@ function HeroVisual() {
 }
 
 // Comparación ilustrativa entre una página lenta y una optimizada.
-function SlowFast() {
+function SlowFast({ t }) {
   const ref = useRef(null)
   const [run, setRun] = useState(0)
 
@@ -97,10 +74,10 @@ function SlowFast() {
       <div className="sv-vs__grid" key={run}>
         <figure className={`sv-vs__item sv-vs__item--slow${state}`}>
           <figcaption>
-            <strong>Sin optimizar</strong>
+            <strong>{t.slow}</strong>
             <span className="sv-vs__status">
-              <span className="sv-vs__loading">Cargando…</span>
-              <span className="sv-vs__ready">Lista</span>
+              <span className="sv-vs__loading">{t.loading}</span>
+              <span className="sv-vs__ready">{t.ready}</span>
             </span>
           </figcaption>
           <div className="sv-vs__screen" aria-hidden="true">
@@ -116,10 +93,10 @@ function SlowFast() {
         </figure>
         <figure className={`sv-vs__item sv-vs__item--fast${state}`}>
           <figcaption>
-            <strong>Optimizada</strong>
+            <strong>{t.fast}</strong>
             <span className="sv-vs__status">
-              <span className="sv-vs__loading">Cargando…</span>
-              <span className="sv-vs__ready">Lista</span>
+              <span className="sv-vs__loading">{t.loading}</span>
+              <span className="sv-vs__ready">{t.ready}</span>
             </span>
           </figcaption>
           <div className="sv-vs__screen" aria-hidden="true">
@@ -134,12 +111,9 @@ function SlowFast() {
         </figure>
       </div>
       <div className="sv-vs__foot">
-        <p className="sv-note">
-          Simulación ilustrativa. Los tiempos reales dependen de cada web, del
-          alojamiento y de la conexión de quien la visita.
-        </p>
+        <p className="sv-note">{t.note}</p>
         <button type="button" className="s-btn s-btn--ghost s-btn--sm" onClick={() => setRun((value) => value + 1)}>
-          <span aria-hidden="true">↻</span> Repetir
+          <span aria-hidden="true">↻</span> {t.replay}
         </button>
       </div>
     </div>
@@ -147,13 +121,14 @@ function SlowFast() {
 }
 
 // Relato: la landing aparece por partes a medida que se avanza.
-function Anatomy({ stage }) {
+function Anatomy({ stage, t }) {
+  const mock = useStudioCopy().mock
   return (
-    <BrowserFrame url="tunegocio.com/oferta" className={`sv-anat ${stageClass(stage)}`}>
+    <BrowserFrame url={`${mock.domain}${t.offerPath}`} className={`sv-anat ${stageClass(stage)}`}>
       <span className="sv-anat__progress" />
       <div className="sv-anat__page">
         <div className="sv-anat__part sv-anat__part--0">
-          <b className="sv-anat__h">Tu negocio, en su mejor versión.</b>
+          <b className="sv-anat__h">{mock.headline}</b>
           <b className="sv-anat__p" />
         </div>
         <div className="sv-anat__part sv-anat__part--1">
@@ -165,7 +140,7 @@ function Anatomy({ stage }) {
           ))}
         </div>
         <div className="sv-anat__part sv-anat__part--2">
-          <span className="sv-anat__cta">Reservar ahora</span>
+          <span className="sv-anat__cta">{t.bookNow}</span>
         </div>
         <div className="sv-anat__part sv-anat__part--3">
           <b className="sv-anat__field" />
@@ -178,51 +153,30 @@ function Anatomy({ stage }) {
 }
 
 export default function LandingPages() {
+  const t = useCopy(COPY)
+  const { sections } = t
   return (
-    <ServiceLayout
-      slug="landing-pages"
-      description="Landing pages rápidas y con un único objetivo: que cargan bien, causan buena primera impresión y convierten visitas en contactos."
-    >
-      <ServiceHero
-        index="03"
-        title="Páginas rápidas que causan buena impresión."
-        lead="Una landing page tiene pocos segundos para convencer. La diseñamos para que cargue bien, se entienda al instante y lleve a una sola acción."
-        visual={<HeroVisual />}
-      />
+    <ServiceLayout slug="landing-pages" description={t.description}>
+      <ServiceHero index="03" title={t.hero.title} lead={t.hero.lead} visual={<HeroVisual />} />
 
-      <SvSection
-        id="detalle"
-        title="La primera impresión cuenta"
-        intro="Antes de leer una sola palabra, el visitante ya ha notado si la página responde rápido y se ve ordenada."
-      >
-        <SvPoints items={IMPRESSION} columns={3} />
+      <SvSection id="detalle" title={sections.impression.title} intro={sections.impression.intro}>
+        <SvPoints items={t.impression} columns={3} />
       </SvSection>
 
-      <SvSection
-        className="sv-section--alt"
-        title="Lenta frente a optimizada"
-        intro="La misma página, construida de dos formas distintas."
-      >
-        <SlowFast />
+      <SvSection className="sv-section--alt" title={sections.versus.title} intro={sections.versus.intro}>
+        <SlowFast t={t.versus} />
       </SvSection>
 
-      <SvSection
-        title="Una página que se construye ante tus ojos"
-        intro="Así se ordena una landing eficaz: lo importante primero, el resto a continuación. Desplázate para verla cargar."
-      >
-        <ScrollStory steps={ANATOMY}>{(stage) => <Anatomy stage={stage} />}</ScrollStory>
+      <SvSection title={sections.anatomy.title} intro={sections.anatomy.intro}>
+        <ScrollStory steps={t.anatomy}>{(stage) => <Anatomy stage={stage} t={t} />}</ScrollStory>
       </SvSection>
 
-      <SvSection
-        className="sv-section--alt"
-        title="Experiencia de usuario"
-        intro="Detalles que no se ven a simple vista, pero que hacen que la página sea agradable de usar."
-      >
-        <SvPoints items={UX} />
+      <SvSection className="sv-section--alt" title={sections.ux.title} intro={sections.ux.intro}>
+        <SvPoints items={t.ux} />
       </SvSection>
 
-      <SvSection title="Cómo creamos tu landing" intro="Un proceso corto y enfocado en el resultado.">
-        <SvSteps steps={STEPS} />
+      <SvSection title={sections.steps.title} intro={sections.steps.intro}>
+        <SvSteps steps={t.steps} />
       </SvSection>
     </ServiceLayout>
   )

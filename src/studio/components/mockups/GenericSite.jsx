@@ -1,6 +1,7 @@
 // Interfaz genérica de un website moderno (sin marcas ni clientes).
 // Se usa en los dispositivos del hero para representar lo que construimos.
 // Escala con el contenedor gracias a las unidades cqw.
+import { useStudioCopy } from '../../copy'
 
 function Chart() {
   return (
@@ -34,6 +35,8 @@ function Cursor() {
 }
 
 export default function GenericSite({ variant = 'desktop' }) {
+  const { headline } = useStudioCopy().mock
+
   if (variant === 'mobile') {
     return (
       <div className="gs gs--mobile">
@@ -43,7 +46,7 @@ export default function GenericSite({ variant = 'desktop' }) {
         </div>
         <div className="gs__body">
           <span className="gs__pill gs-in" style={{ '--d': '0.5s' }} />
-          <b className="gs__h gs-in" style={{ '--d': '0.6s' }}>Tu negocio, en su mejor versión.</b>
+          <b className="gs__h gs-in" style={{ '--d': '0.6s' }}>{headline}</b>
           <span className="gs__line gs-in" style={{ '--d': '0.7s' }} />
           <span className="gs__line gs__line--short gs-in" style={{ '--d': '0.75s' }} />
           <span className="gs__btn gs-in" style={{ '--d': '0.85s' }} />
@@ -70,7 +73,7 @@ export default function GenericSite({ variant = 'desktop' }) {
       <div className="gs__hero">
         <div className="gs__copy">
           <span className="gs__pill gs-in" style={{ '--d': '0.4s' }} />
-          <b className="gs__h gs-in" style={{ '--d': '0.5s' }}>Tu negocio, en su mejor versión.</b>
+          <b className="gs__h gs-in" style={{ '--d': '0.5s' }}>{headline}</b>
           <span className="gs__line gs-in" style={{ '--d': '0.6s' }} />
           <span className="gs__line gs__line--short gs-in" style={{ '--d': '0.65s' }} />
           <span className="gs__actions gs-in" style={{ '--d': '0.75s' }}>

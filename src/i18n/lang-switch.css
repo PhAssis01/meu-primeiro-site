@@ -1,0 +1,187 @@
+/* Selector de idioma: control segmentado, discreto y monocromo.
+   Los colores salen de variables con valores por defecto; cada identidad
+   puede ajustarlos (ver .studio en studio.css y .barber en barberia.css). */
+
+.lang-switch {
+  --ls-line: rgba(255, 255, 255, 0.14);
+  --ls-muted: rgba(255, 255, 255, 0.55);
+  --ls-text: #f5f5f5;
+  --ls-active-bg: rgba(255, 255, 255, 0.1);
+  --ls-h: 30px;
+  --ls-font: 12px;
+
+  display: inline-flex;
+  align-items: stretch;
+  flex: none;
+  padding: 2px;
+  border: 1px solid var(--ls-line);
+  border-radius: 999px;
+  line-height: 1;
+}
+
+.lang-switch__btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: calc(var(--ls-h) + 2px);
+  height: calc(var(--ls-h) - 6px);
+  padding: 0 9px;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--ls-muted);
+  font-size: var(--ls-font);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: color 0.2s, background-color 0.25s;
+}
+
+.lang-switch__btn:hover {
+  color: var(--ls-text);
+}
+
+.lang-switch__btn.is-active {
+  background: var(--ls-active-bg);
+  color: var(--ls-text);
+  cursor: default;
+}
+
+/* Área de toque mínima de 44 px de alto, invisible. */
+.lang-switch__btn::before {
+  content: '';
+  position: absolute;
+  inset: 50% 0 auto;
+  height: max(100%, 44px);
+  transform: translateY(-50%);
+}
+
+.lang-switch--lg {
+  --ls-h: 42px;
+  --ls-font: 14px;
+}
+
+.lang-switch--lg .lang-switch__btn {
+  padding: 0 16px;
+}
+
+/* ---------- Variante compacta (LangMenu) ---------- */
+
+.lang-menu {
+  --ls-line: rgba(255, 255, 255, 0.14);
+  --ls-muted: rgba(255, 255, 255, 0.55);
+  --ls-text: #f5f5f5;
+  --ls-active-bg: rgba(255, 255, 255, 0.1);
+  --ls-surface: #111111;
+
+  position: relative;
+  flex: none;
+}
+
+.lang-menu__toggle {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  height: 30px;
+  padding: 0 11px 0 12px;
+  border: 1px solid var(--ls-line);
+  border-radius: 999px;
+  background: none;
+  color: var(--ls-text);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.lang-menu__toggle:hover,
+.lang-menu.is-open .lang-menu__toggle {
+  border-color: var(--ls-muted);
+}
+
+.lang-menu__toggle::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: max(100%, 44px);
+  height: max(100%, 44px);
+  transform: translate(-50%, -50%);
+}
+
+.lang-menu__chevron {
+  width: 9px;
+  height: 6px;
+  color: var(--ls-muted);
+  transition: transform 0.25s;
+}
+
+.lang-menu.is-open .lang-menu__chevron {
+  transform: rotate(180deg);
+}
+
+.lang-menu__list {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 10;
+  min-width: 200px;
+  padding: 6px;
+  border: 1px solid var(--ls-line);
+  border-radius: 12px;
+  background: var(--ls-surface);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+}
+
+.lang-menu__list[hidden] {
+  display: none;
+}
+
+.lang-menu__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  min-height: 44px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  color: var(--ls-muted);
+  font-size: 14px;
+  text-align: left;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: color 0.2s, background-color 0.2s;
+}
+
+.lang-menu__item:hover {
+  color: var(--ls-text);
+}
+
+.lang-menu__item.is-active {
+  background: var(--ls-active-bg);
+  color: var(--ls-text);
+}
+
+.lang-menu__code {
+  min-width: 42px;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+}
+
+.lang-switch--sm {
+  --ls-h: 24px;
+  --ls-font: 11px;
+  padding: 1px;
+}
+
+.lang-switch--sm .lang-switch__btn {
+  height: calc(var(--ls-h) - 4px);
+  padding: 0 7px;
+}

@@ -2433,3 +2433,36 @@
   height: max(100%, 44px);
   transform: translate(-50%, -50%);
 }
+
+/* ---------- Selector de idioma (src/i18n/LangSwitch.jsx) ---------- */
+.studio .lang-switch,
+.studio .lang-menu {
+  --ls-line: var(--line-strong);
+  --ls-muted: var(--muted);
+  --ls-text: var(--text);
+  --ls-active-bg: rgba(255, 255, 255, 0.09);
+  --ls-surface: var(--card);
+}
+
+/* Separación más corta entre el selector y el botón "Hablemos". */
+.s-nav__lang,
+.sv-nav__lang {
+  margin-right: -12px;
+}
+
+@media (min-width: 961px) and (max-width: 1239px) {
+  .s-nav__inner {
+    gap: 24px;
+  }
+
+  .s-nav__links {
+    gap: 24px;
+  }
+}
+
+@media (max-width: 960px) {
+  /* En móvil, el selector de la Home está dentro del menú (s-menu__foot). */
+  .s-nav__lang {
+    display: none;
+  }
+}

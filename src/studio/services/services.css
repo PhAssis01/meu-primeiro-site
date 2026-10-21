@@ -3709,3 +3709,35 @@
   height: 44px;
   margin-block: -14px;
 }
+
+/* ---------- Selector de idioma en la cabecera de servicio ---------- */
+.sv-nav__lang-menu {
+  display: none;
+}
+
+@media (max-width: 640px) {
+  .sv-nav .s-nav__inner {
+    gap: 16px;
+  }
+
+  .sv-nav__lang {
+    display: none;
+  }
+
+  .sv-nav__lang-menu {
+    display: block;
+  }
+}
+
+/* Pantallas muy estrechas: la flecha "←" basta (el texto sigue disponible
+   para lectores de pantalla). */
+@media (max-width: 359px) {
+  .sv-back__short {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+  }
+}

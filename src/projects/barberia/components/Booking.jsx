@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { SERVICES } from '../data'
+import { useBarberCopy } from '../copy'
 
 function today() {
   const now = new Date()
@@ -9,6 +9,8 @@ function today() {
 
 // Formulario de demostración: no envía datos a ningún sitio.
 export default function Booking() {
+  const t = useBarberCopy()
+  const b = t.booking
   const [sent, setSent] = useState(false)
 
   const handleSubmit = (event) => {
@@ -20,14 +22,9 @@ export default function Booking() {
     <section id="reservas" className="bb-section bb-booking">
       <div className="bb-wrap bb-booking__grid">
         <div className="bb-booking__intro" data-reveal>
-          <h2 className="bb-h2">Reserva tu cita</h2>
-          <p className="bb-booking__lead">
-            Elige tu momento y déjanos cuidar de tu estilo.
-          </p>
-          <p className="bb-booking__small">
-            En la web final, este formulario puede conectarse con el sistema de
-            reservas que utilice la barbería.
-          </p>
+          <h2 className="bb-h2">{b.title}</h2>
+          <p className="bb-booking__lead">{b.lead}</p>
+          <p className="bb-booking__small">{b.small}</p>
         </div>
 
         <form
@@ -37,41 +34,39 @@ export default function Booking() {
           data-reveal
         >
           <div className="bb-field">
-            <label htmlFor="b-name">Nombre</label>
+            <label htmlFor="b-name">{b.name}</label>
             <input id="b-name" name="name" type="text" autoComplete="name" required />
           </div>
           <div className="bb-field">
-            <label htmlFor="b-phone">Teléfono</label>
+            <label htmlFor="b-phone">{b.phone}</label>
             <input id="b-phone" name="phone" type="tel" autoComplete="tel" inputMode="tel" required />
           </div>
           <div className="bb-field bb-field--full">
-            <label htmlFor="b-service">Servicio</label>
+            <label htmlFor="b-service">{b.service}</label>
             <select id="b-service" name="service" required defaultValue="">
               <option value="" disabled>
-                Elige un servicio
+                {b.choose}
               </option>
-              {SERVICES.map((service) => (
-                <option key={service.name}>{service.name}</option>
+              {t.services.items.map((service, index) => (
+                <option key={index}>{service.name}</option>
               ))}
             </select>
           </div>
           <div className="bb-field">
-            <label htmlFor="b-date">Fecha</label>
+            <label htmlFor="b-date">{b.date}</label>
             <input id="b-date" name="date" type="date" min={today()} required />
           </div>
           <div className="bb-field">
-            <label htmlFor="b-time">Hora</label>
+            <label htmlFor="b-time">{b.time}</label>
             <input id="b-time" name="time" type="time" step="900" required />
           </div>
 
           <div className="bb-form__foot">
             <button type="submit" className="bb-btn bb-btn--gold">
-              Reservar cita
+              {t.book}
             </button>
             <p className="bb-form__note" role="status">
-              {sent
-                ? 'Demostración: la solicitud no se ha enviado.'
-                : 'Formulario de demostración: no envía datos.'}
+              {sent ? b.sent : b.idle}
             </p>
           </div>
         </form>

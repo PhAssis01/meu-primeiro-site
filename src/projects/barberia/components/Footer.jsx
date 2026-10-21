@@ -1,19 +1,21 @@
 import Link from '../../../router/Link'
-import { BRAND_PLACEHOLDER, DEMO_LABEL } from '../data'
+import { useBarberCopy } from '../copy'
 import { ScissorsIcon } from './Placeholder'
 
 export default function Footer() {
+  const t = useBarberCopy()
+
   return (
     <footer className="bb-footer">
       <div className="bb-wrap">
         <div className="bb-footer__brand">
           <ScissorsIcon className="bb-footer__icon" />
-          <span className="bb-footer__name">{BRAND_PLACEHOLDER}</span>
+          <span className="bb-footer__name">{t.brand}</span>
         </div>
         <div className="bb-footer__bar">
-          <p>{DEMO_LABEL}</p>
+          <p>{t.demoLabel}</p>
           <Link to="/" className="bb-footer__back">
-            ← Volver al portfolio
+            ← {t.backPortfolio}
           </Link>
         </div>
       </div>

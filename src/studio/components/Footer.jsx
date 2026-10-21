@@ -1,17 +1,20 @@
-import { CONTACT_EMAIL, NAV_LINKS } from '../data'
+import { CONTACT_EMAIL, NAV_IDS } from '../data'
+import { useStudioCopy } from '../copy'
 import Logo from './Logo'
 
 export default function Footer() {
+  const t = useStudioCopy()
+
   return (
     <footer className="s-footer">
       <div className="s-container s-footer__inner">
-        <a href="#inicio" className="s-logo" aria-label="PH Web Studio — volver arriba">
+        <a href="#inicio" className="s-logo" aria-label={t.common.logoTop}>
           <Logo />
         </a>
-        <nav className="s-footer__links" aria-label="Pie de página">
-          {NAV_LINKS.map((link) => (
-            <a key={link.id} href={`#${link.id}`}>
-              {link.label}
+        <nav className="s-footer__links" aria-label={t.common.footerNav}>
+          {NAV_IDS.map((id) => (
+            <a key={id} href={`#${id}`}>
+              {t.nav[id]}
             </a>
           ))}
         </nav>

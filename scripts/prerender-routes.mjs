@@ -16,7 +16,8 @@ const DIST = join(dirname(fileURLToPath(import.meta.url)), '..', 'dist')
 const HOME_DESCRIPTION =
   'PH Web Studio: diseño y desarrollo web a medida para pequeños negocios. Webs claras, rápidas y adaptadas al móvil, pensadas para convertir visitas en clientes.'
 
-// Textos iguales a los que usa cada página en usePageMeta.
+// Textos iguales a los que usa cada página en usePageMeta (versión en español,
+// idioma por defecto; ver src/studio/copy.js, services/copy/ y projects/barberia/copy.js).
 const ROUTES = [
   { path: '/', title: 'PH Web Studio — Diseño y desarrollo web', description: HOME_DESCRIPTION },
   {

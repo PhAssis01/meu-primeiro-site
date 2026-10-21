@@ -4,8 +4,10 @@
 import { useRef } from 'react'
 import { usePageMeta, useReveal, useScrolled } from '../../lib/hooks'
 import Link from '../../router/Link'
-import { CONTACT_EMAIL, NAV_LINKS, SERVICES, serviceHref } from '../data'
+import { CONTACT_EMAIL, NAV_IDS, SERVICES, serviceHref } from '../data'
+import { useStudioCopy } from '../copy'
 import { useStudioMotion } from '../motion'
+import LangSwitch, { LangMenu } from '../../i18n/LangSwitch'
 import Logo from '../components/Logo'
 import Arrow from '../components/Arrow'
 import ServiceArt from '../components/ServiceArt'
@@ -13,20 +15,23 @@ import '../studio.css'
 import './services.css'
 
 function ServiceNav() {
+  const t = useStudioCopy()
   const scrolled = useScrolled()
   return (
     <header className={`s-nav sv-nav${scrolled ? ' is-scrolled' : ''}`}>
       <div className="s-container s-nav__inner">
-        <Link to="/" className="s-logo" aria-label="PH Web Studio — inicio">
+        <Link to="/" className="s-logo" aria-label={t.common.logoHome}>
           <Logo />
         </Link>
         <Link to="/#servicios" className="sv-back">
           <span className="sv-back__arrow" aria-hidden="true">←</span>
-          <span className="sv-back__long">Todos los servicios</span>
-          <span className="sv-back__short">Servicios</span>
+          <span className="sv-back__long">{t.service.allServices}</span>
+          <span className="sv-back__short">{t.service.servicesShort}</span>
         </Link>
+        <LangSwitch className="sv-nav__lang" />
+        <LangMenu className="sv-nav__lang-menu" />
         <Link to="/#contacto" className="s-btn s-btn--primary s-btn--sm sv-nav__cta">
-          Hablemos <Arrow />
+          {t.common.talk} <Arrow />
         </Link>
       </div>
     </header>
@@ -34,13 +39,14 @@ function ServiceNav() {
 }
 
 export function ServiceHero({ index, title, lead, visual, centered = false }) {
+  const t = useStudioCopy().service
   return (
     <section className={`sv-hero${centered ? ' sv-hero--center' : ''}`}>
       <div className="s-hero__grid-bg" aria-hidden="true" data-parallax="-0.06" />
       <div className="s-container sv-hero__inner">
         <div className="sv-hero__copy">
           <p className="s-hero__tag s-fade" style={{ '--d': '0ms' }}>
-            Servicio · {index}
+            {t.tag} · {index}
           </p>
           <h1 className="s-hero__title sv-hero__title s-fade" style={{ '--d': '80ms' }}>
             {title}
@@ -50,10 +56,10 @@ export function ServiceHero({ index, title, lead, visual, centered = false }) {
           </p>
           <div className="s-hero__actions s-fade" style={{ '--d': '320ms' }}>
             <Link to="/#contacto" className="s-btn s-btn--primary">
-              Quiero una web <Arrow />
+              {t.wantSite} <Arrow />
             </Link>
             <a href="#detalle" className="s-btn s-btn--ghost">
-              Ver cómo funciona
+              {t.howItWorks}
             </a>
           </div>
         </div>
@@ -68,18 +74,16 @@ export function ServiceHero({ index, title, lead, visual, centered = false }) {
 }
 
 function OtherServices({ current }) {
+  const t = useStudioCopy()
   const others = SERVICES.filter((service) => service.slug !== current)
   return (
     <section className="s-section sv-more" aria-labelledby="sv-more-title">
       <div className="s-container">
         <header className="s-head" data-reveal>
           <h2 id="sv-more-title" className="s-h2">
-            Otros servicios
+            {t.service.otherTitle}
           </h2>
-          <p className="s-body">
-            Cada web combina varias piezas. Estas son las que completan tu
-            proyecto.
-          </p>
+          <p className="s-body">{t.service.otherIntro}</p>
         </header>
         <ul className="sv-more__list">
           {others.map((service, index) => (
@@ -88,7 +92,7 @@ function OtherServices({ current }) {
                 <span className="sv-more__art">
                   <ServiceArt name={service.art} />
                 </span>
-                <span className="sv-more__title">{service.title}</span>
+                <span className="sv-more__title">{t.services.items[service.slug].title}</span>
                 <span className="sv-more__go" aria-hidden="true">
                   →
                 </span>
@@ -104,19 +108,17 @@ function OtherServices({ current }) {
 // Misma llamada a la acción que la Home (mismas clases y textos),
 // con enlaces que vuelven a la sección de contacto de la página principal.
 function ServiceCta() {
+  const t = useStudioCopy().cta
   return (
     <section className="s-cta" aria-labelledby="sv-cta-title">
       <div className="s-container s-cta__inner" data-reveal>
         <h2 id="sv-cta-title" className="s-cta__title">
-          ¿Tu negocio necesita una web que esté a la altura?
+          {t.title}
         </h2>
         <div className="s-cta__side">
-          <p className="s-body">
-            Cuéntanos tu idea. Te respondemos con una propuesta clara y sin
-            compromiso.
-          </p>
+          <p className="s-body">{t.text}</p>
           <Link to="/#contacto" className="s-btn s-btn--primary s-btn--lg">
-            Hablemos de tu proyecto <Arrow />
+            {t.button} <Arrow />
           </Link>
         </div>
       </div>
@@ -125,16 +127,17 @@ function ServiceCta() {
 }
 
 function ServiceFooter() {
+  const t = useStudioCopy()
   return (
     <footer className="s-footer">
       <div className="s-container s-footer__inner">
-        <Link to="/" className="s-logo" aria-label="PH Web Studio — inicio">
+        <Link to="/" className="s-logo" aria-label={t.common.logoHome}>
           <Logo />
         </Link>
-        <nav className="s-footer__links" aria-label="Pie de página">
-          {NAV_LINKS.map((link) => (
-            <Link key={link.id} to={link.id === 'inicio' ? '/' : `/#${link.id}`}>
-              {link.label}
+        <nav className="s-footer__links" aria-label={t.common.footerNav}>
+          {NAV_IDS.map((id) => (
+            <Link key={id} to={id === 'inicio' ? '/' : `/#${id}`}>
+              {t.nav[id]}
             </Link>
           ))}
         </nav>
@@ -148,8 +151,8 @@ function ServiceFooter() {
 }
 
 export default function ServiceLayout({ slug, description, children }) {
-  const service = SERVICES.find((item) => item.slug === slug)
-  usePageMeta(`${service.title} — PH Web Studio`, 'studio', description)
+  const t = useStudioCopy()
+  usePageMeta(`${t.services.items[slug].title} — PH Web Studio`, 'studio', description)
   useReveal()
   const rootRef = useRef(null)
   useStudioMotion(rootRef)
@@ -158,7 +161,7 @@ export default function ServiceLayout({ slug, description, children }) {
     <div className="studio sv" ref={rootRef}>
       <div className="s-progress" aria-hidden="true" />
       <a href="#main" className="s-skip">
-        Saltar al contenido
+        {t.common.skip}
       </a>
       <ServiceNav />
       <main id="main">

@@ -35,7 +35,7 @@ export function SvPoints({ items, columns = 4 }) {
     <ul className={`sv-points sv-points--${columns}`}>
       {items.map((item, index) => (
         <li
-          key={item.title}
+          key={index}
           className="s-card sv-point"
           data-reveal
           style={{ '--reveal-delay': `${index * 70}ms` }}
@@ -57,7 +57,7 @@ export function SvSteps({ steps }) {
     <ol className="s-process__list">
       {steps.map((step, index) => (
         <li
-          key={step.title}
+          key={index}
           className="s-step"
           data-reveal
           style={{ '--reveal-delay': `${index * 80}ms` }}
@@ -97,8 +97,8 @@ export function ScrollStory({ steps, children }) {
         <div className="sv-story__sticky" aria-hidden="true">
           {children(active)}
           <ol className="sv-story__dots">
-            {steps.map((step, index) => (
-              <li key={step.title} className={index <= active ? 'is-on' : undefined} />
+            {steps.map((_, index) => (
+              <li key={index} className={index <= active ? 'is-on' : undefined} />
             ))}
           </ol>
         </div>
@@ -106,7 +106,7 @@ export function ScrollStory({ steps, children }) {
       <ol className="sv-story__steps" ref={listRef}>
         {steps.map((step, index) => (
           <li
-            key={step.title}
+            key={index}
             data-step={index}
             className={`sv-story__step${index === active ? ' is-active' : ''}`}
           >
