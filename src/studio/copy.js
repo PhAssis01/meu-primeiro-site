@@ -88,6 +88,14 @@ const es = {
           'Ejemplo de website para barberías: servicios claros, galería y reserva de citas desde el móvil. Nombre, logotipo, fotos, colores y textos se personalizan con la identidad de cada negocio.',
         highlights: ['Web completa', 'Reserva de citas', 'Adaptada a móvil'],
       },
+      inmobiliaria: {
+        name: 'Web para inmobiliarias',
+        category: 'Inmobiliaria',
+        label: 'Demo / concepto — creada por PH Web Studio · inmuebles y precios ficticios',
+        description:
+          'Concepto de web inmobiliaria moderna que presenta los inmuebles con una experiencia elegante, intuitiva y adaptada a cualquier pantalla: buscador con filtros, fichas con galería y solicitud de visita.',
+        highlights: ['Buscador con filtros', 'Fichas con galería', 'Solicitud de visita'],
+      },
     },
   },
   process: {
@@ -133,6 +141,11 @@ const es = {
     copiedEmail: 'Email copiado',
     openMail: 'Abrir correo',
     copyFail: 'No se ha podido copiar. Selecciona el texto del formulario y cópialo manualmente.',
+    // Información básica de protección de datos (primera capa, art. 11 LOPDGDD)
+    privacy: {
+      text: 'Responsable: el titular de PH Web Studio (ver Aviso legal). Usaremos tus datos solo para responder a tu consulta y, si lo pides, preparar un presupuesto. No se ceden a terceros. Puedes acceder a ellos, rectificarlos o suprimirlos, entre otros derechos.',
+      link: 'Política de privacidad',
+    },
   },
   notFound: {
     title: 'Esta página no existe.',
@@ -232,6 +245,14 @@ const en = {
           "Sample website for barbershops: clear services, a gallery and appointment booking from the phone. Name, logo, photos, colors and copy are customized to each business's identity.",
         highlights: ['Full website', 'Appointment booking', 'Mobile-friendly'],
       },
+      inmobiliaria: {
+        name: 'Real Estate Website',
+        category: 'Real estate',
+        label: 'Concept demo — created by PH Web Studio · fictional properties and prices',
+        description:
+          'A modern real estate website concept designed to showcase property listings through an elegant, intuitive, and responsive experience.',
+        highlights: ['Search with filters', 'Listings with gallery', 'Viewing requests'],
+      },
     },
   },
   process: {
@@ -277,6 +298,10 @@ const en = {
     copiedEmail: 'Email copied',
     openMail: 'Open email',
     copyFail: "Couldn't copy. Select the text in the form and copy it manually.",
+    privacy: {
+      text: 'Controller: the owner of PH Web Studio (see Legal notice). We will only use your data to reply to your enquiry and, if you ask, to prepare a quote. It is not shared with third parties. You can access, correct or delete it, among other rights.',
+      link: 'Privacy policy',
+    },
   },
   notFound: {
     title: "This page doesn't exist.",
@@ -376,6 +401,14 @@ const ptBR = {
           'Exemplo de site para barbearias: serviços claros, galeria e agendamento pelo celular. Nome, logotipo, fotos, cores e textos são personalizados com a identidade de cada negócio.',
         highlights: ['Site completo', 'Agendamento de horários', 'Adaptado ao celular'],
       },
+      inmobiliaria: {
+        name: 'Site para imobiliárias',
+        category: 'Imobiliária',
+        label: 'Demo / conceito — criado pela PH Web Studio · imóveis e preços fictícios',
+        description:
+          'Conceito de site imobiliário moderno que apresenta os imóveis com uma experiência elegante, intuitiva e adaptada a qualquer tela: busca com filtros, páginas com galeria e agendamento de visitas.',
+        highlights: ['Busca com filtros', 'Páginas com galeria', 'Agendamento de visitas'],
+      },
     },
   },
   process: {
@@ -421,6 +454,10 @@ const ptBR = {
     copiedEmail: 'E-mail copiado',
     openMail: 'Abrir e-mail',
     copyFail: 'Não foi possível copiar. Selecione o texto do formulário e copie manualmente.',
+    privacy: {
+      text: 'Responsável: o titular da PH Web Studio (ver Aviso legal). Usaremos os seus dados apenas para responder ao seu contato e, se você pedir, preparar um orçamento. Não são compartilhados com terceiros. Você pode acessá-los, corrigi-los ou eliminá-los, entre outros direitos.',
+      link: 'Política de privacidade',
+    },
   },
   notFound: {
     title: 'Esta página não existe.',

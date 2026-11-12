@@ -1316,6 +1316,147 @@
   outline-offset: 2.5cqw;
 }
 
+/* Miniatura de la demo inmobiliaria (components/previews/EstatePreview.jsx) */
+.ep {
+  container-type: inline-size;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: #f7f4ef;
+  color: #1f1e1c;
+  font-family: 'Inter', system-ui, sans-serif;
+}
+
+.ep__nav {
+  display: flex;
+  align-items: center;
+  gap: 3cqw;
+  padding: 1.8cqw 4cqw;
+}
+
+.ep__logo {
+  display: flex;
+  align-items: center;
+  gap: 1.2cqw;
+  font-family: 'Instrument Serif', serif;
+  font-size: 2.1cqw;
+  white-space: nowrap;
+}
+
+.ep__mark {
+  width: 3.4cqw;
+  height: 3.4cqw;
+  border: 1px dashed #cfc6b8;
+  border-radius: 0.8cqw;
+}
+
+.ep__links {
+  display: flex;
+  gap: 2cqw;
+  margin-left: auto;
+}
+
+.ep__links i {
+  width: 6cqw;
+  height: 0.7cqw;
+  border-radius: 1cqw;
+  background: #cfc6b8;
+}
+
+.ep__cta {
+  padding: 0.9cqw 2.2cqw;
+  border-radius: 9cqw;
+  background: #1f1e1c;
+  color: #f7f4ef;
+  font-size: 1.5cqw;
+}
+
+.ep__hero {
+  position: relative;
+  flex: 1;
+  margin: 0 4cqw;
+  border-radius: 1.8cqw;
+  overflow: hidden;
+}
+
+.ep__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.ep__hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(20, 19, 17, 0) 30%, rgba(20, 19, 17, 0.6));
+}
+
+.ep__title {
+  position: absolute;
+  z-index: 1;
+  left: 4cqw;
+  bottom: 8cqw;
+  max-width: 50cqw;
+  color: #fff;
+  font-family: 'Instrument Serif', serif;
+  font-size: 4.6cqw;
+  line-height: 1;
+}
+
+.ep__search {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 1.6cqw;
+  width: 80cqw;
+  margin: -5cqw auto 3cqw;
+  padding: 1.6cqw;
+  border: 1px solid #e2dcd2;
+  border-radius: 1.6cqw;
+  background: #fbf9f6;
+  box-shadow: 0 2cqw 4cqw -2cqw rgba(31, 30, 28, 0.35);
+  font-size: 1.4cqw;
+}
+
+.ep__tabs {
+  display: flex;
+  padding: 0.4cqw;
+  border-radius: 9cqw;
+  background: #efeae2;
+  color: #77726a;
+}
+
+.ep__tabs b,
+.ep__tabs span {
+  padding: 0.6cqw 1.6cqw;
+  border-radius: 9cqw;
+  font-weight: 500;
+}
+
+.ep__tabs b {
+  background: #1f1e1c;
+  color: #f7f4ef;
+}
+
+.ep__search i {
+  flex: 1;
+  height: 3.6cqw;
+  border: 1px solid #e2dcd2;
+  border-radius: 0.9cqw;
+  background: #fff;
+}
+
+.ep__btn {
+  padding: 1cqw 2.4cqw;
+  border-radius: 9cqw;
+  background: #1f1e1c;
+  color: #f7f4ef;
+}
+
 /* ---------- Secciones ---------- */
 
 .s-section {
@@ -1869,6 +2010,25 @@
   font-size: 13px;
 }
 
+/* Información básica de protección de datos, visible antes de enviar */
+.s-form__privacy {
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.55;
+}
+
+.s-form__privacy a {
+  color: var(--color-text-soft);
+  text-decoration: underline;
+  text-decoration-color: var(--line-strong);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 0.2s;
+}
+
+.s-form__privacy a:hover {
+  text-decoration-color: var(--color-text-soft);
+}
+
 /* Campo trampa anti-spam: fuera de la vista y del foco */
 .s-form__trap {
   position: absolute;
@@ -1918,6 +2078,19 @@
   align-items: flex-end;
   gap: 4px;
   color: var(--muted);
+  font-size: 13px;
+}
+
+/* Enlaces legales del pie (Aviso legal · Privacidad · Cookies) */
+.s-footer__legal {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 4px 18px;
+  margin-block: 2px;
+}
+
+.s-footer__meta .s-footer__legal a {
   font-size: 13px;
 }
 
@@ -2044,6 +2217,10 @@
 
   .s-footer__meta {
     align-items: flex-start;
+  }
+
+  .s-footer__legal {
+    justify-content: flex-start;
   }
 }
 
@@ -2415,6 +2592,11 @@
 .s-footer__links a,
 .s-footer__meta a {
   position: relative;
+}
+
+/* Los enlaces legales van muy juntos: zona táctil solo en vertical */
+.s-footer__meta .s-footer__legal a::before {
+  width: 100%;
 }
 
 .s-logo::before,

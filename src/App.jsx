@@ -8,6 +8,13 @@ import DesarrolloWeb from './studio/services/DesarrolloWeb'
 import LandingPages from './studio/services/LandingPages'
 import OptimizacionMovil from './studio/services/OptimizacionMovil'
 import PresenciaDigital from './studio/services/PresenciaDigital'
+import LegalPage from './studio/legal/LegalPage'
+import Inmobiliaria from './projects/inmobiliaria/Inmobiliaria'
+import { BASE as ESTATE_BASE } from './projects/inmobiliaria/data'
+
+const LegalNotice = () => <LegalPage page="notice" />
+const Privacy = () => <LegalPage page="privacy" />
+const Cookies = () => <LegalPage page="cookies" />
 
 // Rutas del sitio. Para añadir un proyecto nuevo:
 // 1. crear su carpeta en src/projects/<nombre>/
@@ -20,17 +27,24 @@ if ('scrollRestoration' in window.history) {
 const ROUTES = {
   '/': StudioHome,
   '/proyectos/barberia': Barberia,
+  // Demo inmobiliaria: inicio + fichas en /proyectos/inmobiliaria/<slug> (ver resolvePage)
+  [ESTATE_BASE]: Inmobiliaria,
   // Páginas de servicio (slugs en src/studio/data.js → SERVICES)
   '/servicios/diseno-web': DisenoWeb,
   '/servicios/desarrollo-web': DesarrolloWeb,
   '/servicios/landing-pages': LandingPages,
   '/servicios/optimizacion-movil': OptimizacionMovil,
   '/servicios/presencia-digital': PresenciaDigital,
+  // Páginas legales (rutas en src/studio/data.js → LEGAL_ROUTES)
+  '/aviso-legal': LegalNotice,
+  '/privacidad': Privacy,
+  '/cookies': Cookies,
 }
 
 export default function App() {
   const pathname = usePathname()
-  const Page = ROUTES[pathname] ?? NotFound
+  // Rutas con subpáginas (fichas de inmuebles). Un slug inexistente muestra 404 (Inmobiliaria.jsx).
+  const Page = ROUTES[pathname] ?? (pathname.startsWith(`${ESTATE_BASE}/`) ? Inmobiliaria : NotFound)
 
   useEffect(() => {
     const { hash } = window.location

@@ -1,6 +1,7 @@
 import { CONTACT_EMAIL, NAV_IDS } from '../data'
 import { useStudioCopy } from '../copy'
 import Logo from './Logo'
+import LegalLinks from '../legal/LegalLinks'
 
 export default function Footer() {
   const t = useStudioCopy()
@@ -20,6 +21,7 @@ export default function Footer() {
         </nav>
         <div className="s-footer__meta">
           <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+          <LegalLinks className="s-footer__legal" />
           <span>© {new Date().getFullYear()} PH Web Studio</span>
         </div>
       </div>

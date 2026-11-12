@@ -11,22 +11,26 @@ import LangSwitch, { LangMenu } from '../../i18n/LangSwitch'
 import Logo from '../components/Logo'
 import Arrow from '../components/Arrow'
 import ServiceArt from '../components/ServiceArt'
+import LegalLinks from '../legal/LegalLinks'
 import '../studio.css'
 import './services.css'
 
-function ServiceNav() {
+// `back`: enlace de vuelta (por defecto, a la lista de servicios de la Home).
+// También lo usan las páginas legales (../legal/LegalPage.jsx).
+export function ServiceNav({ back }) {
   const t = useStudioCopy()
   const scrolled = useScrolled()
+  const backLink = back ?? { to: '/#servicios', long: t.service.allServices, short: t.service.servicesShort }
   return (
     <header className={`s-nav sv-nav${scrolled ? ' is-scrolled' : ''}`}>
       <div className="s-container s-nav__inner">
         <Link to="/" className="s-logo" aria-label={t.common.logoHome}>
           <Logo />
         </Link>
-        <Link to="/#servicios" className="sv-back">
+        <Link to={backLink.to} className="sv-back">
           <span className="sv-back__arrow" aria-hidden="true">←</span>
-          <span className="sv-back__long">{t.service.allServices}</span>
-          <span className="sv-back__short">{t.service.servicesShort}</span>
+          <span className="sv-back__long">{backLink.long}</span>
+          <span className="sv-back__short">{backLink.short}</span>
         </Link>
         <LangSwitch className="sv-nav__lang" />
         <LangMenu className="sv-nav__lang-menu" />
@@ -126,7 +130,7 @@ function ServiceCta() {
   )
 }
 
-function ServiceFooter() {
+export function ServiceFooter() {
   const t = useStudioCopy()
   return (
     <footer className="s-footer">
@@ -143,6 +147,7 @@ function ServiceFooter() {
         </nav>
         <div className="s-footer__meta">
           <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+          <LegalLinks className="s-footer__legal" />
           <span>© {new Date().getFullYear()} PH Web Studio</span>
         </div>
       </div>

@@ -17,6 +17,8 @@ npm run preview  # testa o build localmente
 | ---------------------- | ------------------------------------------------- |
 | `/`                    | Portfólio da PH Web Studio                        |
 | `/proyectos/barberia`  | Demo genérica para barbearias (template)          |
+| `/proyectos/inmobiliaria` (+ `/<slug>`) | Demo para imobiliárias (imóveis fictícios) |
+| `/aviso-legal`, `/privacidad`, `/cookies` | Páginas legais                  |
 | qualquer outra         | Página 404                                        |
 
 ## Estrutura

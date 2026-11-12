@@ -8,7 +8,40 @@ export const CONTACT_EMAIL = 'phwebstudio.es@gmail.com'
 // en la aplicación de correo del visitante y lo indica con claridad.
 // Para activarlo, pega aquí la URL de un servicio de formularios que acepte
 // POST con FormData y responda 2xx (p. ej. Formspree: 'https://formspree.io/f/xxxxxxx').
+// ⚠ Si lo activas: 1) añade su origen a connect-src en public/_headers (CSP) y
+// 2) añade ese proveedor (y su posible transferencia internacional) a la
+//    Política de privacidad (src/studio/legal/content.js).
 export const CONTACT_ENDPOINT = ''
+
+// ---------------------------------------------------------------------------
+// DATOS LEGALES DEL TITULAR (Aviso legal, Política de privacidad)
+// Obligatorios según la LSSI-CE (art. 10) y el RGPD (art. 13).
+// Mientras un campo esté vacío, las páginas legales muestran un aviso
+// «pendiente de publicación» y un aviso visible, y `npm run build` muestra una advertencia.
+// No rellenar con datos inventados: solo los reales del titular.
+// ---------------------------------------------------------------------------
+export const LEGAL = {
+  // Nombre y apellidos del titular (si es autónomo) o razón social (si es sociedad).
+  ownerName: '',
+  // NIF / NIE (persona física) o CIF/NIF de la sociedad.
+  taxId: '',
+  // Domicilio completo (calle, número, código postal, ciudad, provincia, España).
+  address: '',
+  // Solo si está inscrito en un registro público (p. ej. Registro Mercantil:
+  // tomo, folio, hoja). Si es autónomo sin inscripción, escribir exactamente: 'no-aplica'.
+  registry: '',
+  // Plazo máximo (en meses) para conservar consultas que no terminan en encargo.
+  // Valor propuesto: confírmalo o cámbialo.
+  contactRetentionMonths: 12,
+  // Fecha de la última revisión de los textos legales (AAAA-MM-DD).
+  lastUpdated: '2026-11-12',
+}
+
+export const LEGAL_ROUTES = {
+  notice: '/aviso-legal',
+  privacy: '/privacidad',
+  cookies: '/cookies',
+}
 
 // Secciones de la Home (los nombres visibles están en copy.js → nav).
 export const NAV_IDS = ['inicio', 'servicios', 'proyectos', 'proceso', 'contacto']
@@ -36,6 +69,12 @@ export const PROJECTS = [
     href: '/proyectos/barberia',
     url: 'phwebstudios.net/proyectos/barberia',
     preview: 'barberia',
+  },
+  {
+    slug: 'inmobiliaria',
+    href: '/proyectos/inmobiliaria',
+    url: 'phwebstudios.net/proyectos/inmobiliaria',
+    preview: 'inmobiliaria',
   },
   // Próximos proyectos (descomentar cuando existan su página, su miniatura y sus textos):
   // { slug: 'restaurante', … },

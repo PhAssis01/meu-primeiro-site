@@ -1,5 +1,6 @@
 import { useState } from 'react'
-import { CONTACT_EMAIL, CONTACT_ENDPOINT } from '../data'
+import Link from '../../router/Link'
+import { CONTACT_EMAIL, CONTACT_ENDPOINT, LEGAL_ROUTES } from '../data'
 import { useStudioCopy } from '../copy'
 
 // Formulario de contacto.
@@ -93,16 +94,20 @@ export default function Contact() {
         <form className="s-form" onSubmit={handleSubmit} data-reveal>
           <div className="s-field">
             <label htmlFor="c-name">{t.name}</label>
-            <input id="c-name" name="name" type="text" autoComplete="name" required />
+            <input id="c-name" name="name" type="text" autoComplete="name" maxLength={100} required />
           </div>
           <div className="s-field">
             <label htmlFor="c-email">{t.email}</label>
-            <input id="c-email" name="email" type="email" autoComplete="email" required />
+            <input id="c-email" name="email" type="email" autoComplete="email" maxLength={254} required />
           </div>
           <div className="s-field">
             <label htmlFor="c-message">{t.message}</label>
-            <textarea id="c-message" name="message" rows="5" required />
+            <textarea id="c-message" name="message" rows="5" maxLength={4000} required />
           </div>
+          <p className="s-form__privacy" id="c-privacy">
+            {t.privacy.text}{' '}
+            <Link to={LEGAL_ROUTES.privacy}>{t.privacy.link}</Link>.
+          </p>
           <div className="s-form__foot">
             <div className="s-form__trap" aria-hidden="true">
               <label htmlFor="c-gotcha">{t.trap}</label>

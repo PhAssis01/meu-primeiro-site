@@ -56,7 +56,53 @@ const ROUTES = [
     description:
       'Presencia digital para negocios: web, dominio, correo profesional y perfil de Google alineados con tu marca.',
   },
+  // Páginas legales (textos en src/studio/legal/content.js)
+  {
+    path: '/aviso-legal',
+    title: 'Aviso legal — PH Web Studio',
+    description:
+      'Aviso legal de PH Web Studio: datos identificativos del titular del sitio web, condiciones de uso y responsabilidad.',
+  },
+  {
+    path: '/privacidad',
+    title: 'Política de privacidad — PH Web Studio',
+    description:
+      'Política de privacidad de PH Web Studio: qué datos personales se tratan, para qué, con qué base legal, durante cuánto tiempo y cómo ejercer tus derechos.',
+  },
+  {
+    path: '/cookies',
+    title: 'Política de cookies — PH Web Studio',
+    description:
+      'Política de cookies de PH Web Studio: esta web no utiliza cookies de analítica, publicidad ni seguimiento. Información sobre el almacenamiento local del navegador.',
+  },
 ]
+
+// Demo inmobiliaria: inicio + una página por inmueble ficticio.
+// Títulos y descripciones salen de los propios textos de la demo (versión en español).
+{
+  const { BASE, PROPERTIES } = await import('../src/projects/inmobiliaria/data.js')
+  const { COPY } = await import('../src/projects/inmobiliaria/copy.js')
+  const t = COPY.es
+  ROUTES.push({ path: BASE, title: t.meta.title, description: t.meta.description })
+  for (const property of PROPERTIES) {
+    const text = t.properties[property.slug]
+    ROUTES.push({
+      path: `${BASE}/${property.slug}`,
+      title: t.meta.property(text.title),
+      description: text.description[0],
+    })
+  }
+}
+
+// Aviso si faltan datos legales obligatorios (LSSI-CE art. 10 / RGPD art. 13).
+const { LEGAL } = await import('../src/studio/data.js')
+const missing = ['ownerName', 'taxId', 'address', 'registry'].filter((key) => !String(LEGAL[key] ?? '').trim())
+if (missing.length) {
+  console.warn(
+    `\n⚠  prerender-routes: faltan datos legales en src/studio/data.js → LEGAL: ${missing.join(', ')}.\n` +
+      '   Las páginas legales mostrarán «pendiente de publicación» y un aviso.\n',
+  )
+}
 
 const escape = (value) =>
   value.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;')

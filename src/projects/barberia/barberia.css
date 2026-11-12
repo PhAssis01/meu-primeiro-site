@@ -1035,6 +1035,22 @@
   font-size: 14px;
 }
 
+.bb-footer__legal {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 18px;
+}
+
+.bb-footer__legal a {
+  color: var(--grey);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.bb-footer__legal a:hover {
+  color: var(--gold);
+}
+
 .bb-footer__back {
   color: var(--ivory);
   text-decoration: none;

@@ -1,4 +1,28 @@
 # Cabeceras de Cloudflare (Workers static assets / Pages).
+# `vite preview` aplica también las cabeceras de la regla /* (ver vite.config.js)
+# para poder probar la CSP en local antes de publicar.
+
+# Seguridad para todas las respuestas.
+# · CSP: todo se sirve desde el propio dominio (JS, CSS, fuentes, imágenes).
+#   'unsafe-inline' en style-src es necesario: React usa atributos style
+#   (variables CSS de animación) y index.html tiene un <style> mínimo.
+#   Si activas CONTACT_ENDPOINT (src/studio/data.js), añade su origen a connect-src,
+#   p. ej.: connect-src 'self' https://formspree.io
+# · HSTS: solo para phwebstudios.net (el certificado HTTPS de Cloudflare funciona).
+#   Los navegadores lo ignoran si llega por http://, así que no rompe nada; tras la
+#   primera visita por HTTPS, las siguientes irán siempre por HTTPS.
+#   Sin includeSubDomains ni preload hasta revisar todos los subdominios (www no existe hoy).
+#   Además conviene activar en Cloudflare «Always Use HTTPS» (http:// hoy no redirige).
+/*
+  Strict-Transport-Security: max-age=31536000
+  Content-Security-Policy: default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; manifest-src 'self'; media-src 'self'; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'; upgrade-insecure-requests
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: accelerometer=(), autoplay=(), camera=(), display-capture=(), encrypted-media=(), fullscreen=(self), geolocation=(), gyroscope=(), magnetometer=(), microphone=(), midi=(), payment=(), publickey-credentials-get=(), usb=(), browsing-topics=()
+  Cross-Origin-Opener-Policy: same-origin
+  Cross-Origin-Resource-Policy: same-origin
+
 # Los archivos de /assets/ llevan un hash en el nombre (los genera Vite):
 # si cambian, cambia el nombre, así que se pueden guardar en caché un año.
 /assets/*
